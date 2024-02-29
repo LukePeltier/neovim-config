@@ -815,4 +815,4 @@ require('lazy').setup {
 }
 
 -- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=8 sts=0 sw=4 et
+vim: ts=8 sts=0 sw=4 et
