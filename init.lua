@@ -207,6 +207,8 @@ vim.opt.termguicolors = true
 
 vim.opt.updatetime = 50
 
+vim.g.mapleader = ' '
+vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
 -- [[ Basic Autocommands ]]
 --  See :help lua-guide-autocommands
 
