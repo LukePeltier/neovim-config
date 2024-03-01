@@ -195,7 +195,11 @@ vim.opt.shiftwidth = 4 -- Number of spaces inserted when indenting
 
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undodir = os.getenv 'HOME' .. '/.vim/undodir'
+local path_sep = package.config:sub(1, 1) -- Get the path separator based on the package.config
+local home_dir = os.getenv 'HOME' or os.getenv 'USERPROFILE' -- Get home directory in a cross-platform way
+local undodir = home_dir .. (path_sep == '\\' and '\\.vim\\undodir' or '/.vim/undodir') -- Adjust path based on OS
+
+vim.opt.undodir = undodir
 vim.opt.undofile = true
 
 vim.opt.smartindent = true
@@ -211,7 +215,7 @@ vim.opt.updatetime = 50
 
 vim.opt.guifont = 'JetBrains Mono NL'
 
-vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
+vim.keymap.set('n', '<leader>pv', vim.cmd.NvimTreeToggle)
 -- [[ Basic Autocommands ]]
 --  See :help lua-guide-autocommands
 
