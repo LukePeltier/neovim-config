@@ -427,6 +427,10 @@ require('lazy').setup {
       vim.keymap.set('n', '<leader>sn', function()
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
       end, { desc = '[S]earch [N]eovim files' })
+
+      vim.keymap.set('n', '<leader>sa', function()
+        builtin.find_files { cwd = '/home/lpeltier' }
+      end, { desc = '[S]earch [A]ll files' })
     end,
   },
 
@@ -543,6 +547,12 @@ require('lazy').setup {
               callback = vim.lsp.buf.clear_references,
             })
           end
+          vim.api.nvim_create_autocmd({ 'FileType' }, {
+            pattern = { 'cpp', 'h' },
+            callback = function()
+              vim.b.autoformat = false
+            end,
+          })
         end,
       })
 
@@ -563,7 +573,12 @@ require('lazy').setup {
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        clangd = {},
+        clangd = {
+          on_attach = function(client)
+            client.server_capabilities.documentRangeFormattingProvider = false
+            client.server_capabilities.documentFormattingProvider = false
+          end,
+        },
         gopls = {},
         -- pyright = {},
         rust_analyzer = {},
@@ -624,6 +639,7 @@ require('lazy').setup {
             -- This handles overriding only values explicitly passed
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for tsserver)
+            --
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
             require('lspconfig')[server_name].setup(server)
           end,
