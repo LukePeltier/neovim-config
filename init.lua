@@ -186,10 +186,10 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 
 -- vim.keymap.set('n', '<C-
 
-vim.opt.tabstop = 4 -- A TAB character looks like 4 spaces
+vim.opt.tabstop = 3 -- A TAB character looks like 4 spaces
 vim.opt.expandtab = true -- Pressing the TAB key will insert spaces instead of a TAB character
-vim.opt.softtabstop = 4 -- Number of spaces inserted instead of a TAB character
-vim.opt.shiftwidth = 4 -- Number of spaces inserted when indenting
+vim.opt.softtabstop = 3 -- Number of spaces inserted instead of a TAB character
+vim.opt.shiftwidth = 3 -- Number of spaces inserted when indenting
 
 -- vim.opt.nu = true
 
@@ -614,6 +614,7 @@ require('lazy').setup {
             },
           },
         },
+        shellcheck = {},
       }
 
       -- Ensure the servers and tools above are installed
@@ -868,6 +869,3 @@ require('lazy').setup {
   --    For additional information see: :help lazy.nvim-lazy.nvim-structuring-your-plugins
   { import = 'custom.plugins' },
 }
-
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=8 sts=0 sw=4 et
