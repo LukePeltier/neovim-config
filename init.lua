@@ -186,10 +186,10 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 
 -- vim.keymap.set('n', '<C-
 
-vim.opt.tabstop = 3 -- A TAB character looks like 4 spaces
+vim.opt.tabstop = 4 -- A TAB character looks like 4 spaces
 vim.opt.expandtab = true -- Pressing the TAB key will insert spaces instead of a TAB character
-vim.opt.softtabstop = 3 -- Number of spaces inserted instead of a TAB character
-vim.opt.shiftwidth = 3 -- Number of spaces inserted when indenting
+vim.opt.softtabstop = 4 -- Number of spaces inserted instead of a TAB character
+vim.opt.shiftwidth = 4 -- Number of spaces inserted when indenting
 
 -- vim.opt.nu = true
 
@@ -612,7 +612,6 @@ require('lazy').setup {
             },
           },
         },
-        shellcheck = {},
       }
 
       -- Ensure the servers and tools above are installed
@@ -766,12 +765,12 @@ require('lazy').setup {
     -- change the command in the config to whatever the name of that colorscheme is
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`
-    'navarasu/onedark.nvim',
+    'folke/tokyonight.nvim',
     lazy = false, -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
       -- Load the colorscheme here
-      vim.cmd.colorscheme 'onedark'
+      vim.cmd.colorscheme 'tokyonight-night'
 
       -- You can configure highlights by doing something like
       vim.cmd.hi 'Comment gui=none'
