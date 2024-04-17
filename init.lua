@@ -825,8 +825,6 @@ require('lazy').setup {
 
       require('mini.indentscope').setup()
 
-      require('mini.animate').setup()
-
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,
