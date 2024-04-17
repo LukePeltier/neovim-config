@@ -191,6 +191,10 @@ vim.opt.expandtab = true -- Pressing the TAB key will insert spaces instead of a
 vim.opt.softtabstop = 4 -- Number of spaces inserted instead of a TAB character
 vim.opt.shiftwidth = 4 -- Number of spaces inserted when indenting
 
+vim.opt.foldcolumn = '1'
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+vim.opt.foldenable = true
 -- vim.opt.nu = true
 
 vim.opt.swapfile = false
@@ -202,6 +206,7 @@ local undodir = home_dir .. (path_sep == '\\' and '\\.vim\\undodir' or '/.vim/un
 vim.opt.undodir = undodir
 vim.opt.undofile = true
 
+vim.opt.autoindent = true
 vim.opt.smartindent = true
 
 -- vim.opt.hlsearch = false
@@ -612,6 +617,8 @@ require('lazy').setup {
             },
           },
         },
+        svelte = {},
+        bashls = {},
       }
 
       -- Ensure the servers and tools above are installed
@@ -648,6 +655,8 @@ require('lazy').setup {
 
   { -- Autoformat
     'stevearc/conform.nvim',
+    event = { 'BufWritePre' },
+    cmd = { 'ConformInfo' },
     opts = {
       notify_on_error = false,
       format_on_save = {
@@ -661,8 +670,18 @@ require('lazy').setup {
         --
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
-        -- javascript = { { "prettierd", "prettier" } },
-        go = { 'gopls' },
+        javascript = { { 'prettierd', 'prettier' } },
+        typescript = { { 'prettierd', 'prettier' } },
+        sh = { 'beautysh' },
+        php = { 'phpcbf' },
+      },
+      formatters = {
+        beautysh = {
+          prepend_args = { '-i', '3' },
+        },
+        phpcbf = {
+          prepend_args = { '--standard=/home/lpeltier/cafe_core/CORE/API/CafeStandards.xml' },
+        },
       },
     },
   },
@@ -787,13 +806,6 @@ require('lazy').setup {
       --  - yinq - [Y]ank [I]nside [N]ext [']quote
       --  - ci'  - [C]hange [I]nside [']quote
       require('mini.ai').setup { n_lines = 500 }
-
-      -- Add/delete/replace surroundings (brackets, quotes, etc.)
-      --
-      -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
-      -- - sd'   - [S]urround [D]elete [']quotes
-      -- - sr)'  - [S]urround [R]eplace [)] [']
-      require('mini.surround').setup()
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
