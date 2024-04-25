@@ -614,7 +614,6 @@ require('lazy').setup {
         svelte = {},
         bashls = {},
         intelephense = {},
-        psalm = {},
       }
 
       -- Ensure the servers and tools above are installed
