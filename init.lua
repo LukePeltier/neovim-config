@@ -550,12 +550,6 @@ require('lazy').setup {
               callback = vim.lsp.buf.clear_references,
             })
           end
-          vim.api.nvim_create_autocmd({ 'FileType' }, {
-            pattern = { 'cpp', 'h' },
-            callback = function()
-              vim.b.autoformat = false
-            end,
-          })
         end,
       })
 
@@ -619,6 +613,8 @@ require('lazy').setup {
         },
         svelte = {},
         bashls = {},
+        intelephense = {},
+        psalm = {},
       }
 
       -- Ensure the servers and tools above are installed
@@ -673,14 +669,10 @@ require('lazy').setup {
         javascript = { { 'prettierd', 'prettier' } },
         typescript = { { 'prettierd', 'prettier' } },
         sh = { 'beautysh' },
-        php = { 'phpcbf' },
       },
       formatters = {
         beautysh = {
           prepend_args = { '-i', '3' },
-        },
-        phpcbf = {
-          prepend_args = { '--standard=/home/lpeltier/cafe_core/CORE/API/CafeStandards.xml' },
         },
       },
     },
@@ -784,12 +776,13 @@ require('lazy').setup {
     -- change the command in the config to whatever the name of that colorscheme is
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`
-    'navarasu/onedark.nvim',
+    -- 'navarasu/onedark.nvim',
+    'folke/tokyonight.nvim',
     lazy = false, -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
       -- Load the colorscheme here
-      vim.cmd.colorscheme 'onedark'
+      vim.cmd.colorscheme 'tokyonight'
     end,
   },
 
@@ -842,7 +835,9 @@ require('lazy').setup {
         -- Autoinstall languages that are not installed
         auto_install = true,
         highlight = { enable = true },
-        indent = { enable = true },
+        indent = {
+          enable = true,
+        },
       }
 
       -- There are additional nvim-treesitter modules that you can use to interact
