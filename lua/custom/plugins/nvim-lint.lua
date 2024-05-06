@@ -7,7 +7,7 @@ return {
       editorconfig = { 'editorconfig-checker' },
       sh = { 'shellcheck' },
       bash = { 'shellcheck' },
-      php = { 'phpstan', 'phpcs' },
+      php = { 'phpcs' },
     }
     local phpcs = lint.linters.phpcs
     phpcs.args = {
