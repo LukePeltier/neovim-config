@@ -137,7 +137,7 @@ vim.opt.splitbelow = true
 --  See :help 'list'
 --  and :help 'listchars'
 vim.opt.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣', extends = '>', precedes = '<' }
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
@@ -209,8 +209,10 @@ vim.opt.undofile = true
 vim.opt.autoindent = true
 vim.opt.smartindent = true
 
--- vim.opt.hlsearch = false
--- vim.opt.incsearch = true
+vim.opt.hlsearch = true
+vim.opt.incsearch = true
+
+vim.opt.scrolloff = 5
 
 vim.opt.termguicolors = true
 
@@ -218,7 +220,7 @@ vim.opt.updatetime = 50
 
 vim.opt.guifont = 'JetBrains Mono NL'
 
-vim.keymap.set('n', '<leader>pv', vim.cmd.NvimTreeToggle)
+vim.keymap.set('n', '<leader>pv', vim.cmd.Explore)
 -- [[ Basic Autocommands ]]
 --  See :help lua-guide-autocommands
 
@@ -447,7 +449,7 @@ require('lazy').setup {
 
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = { autoformat = false } },
+      { 'j-hui/fidget.nvim', opts = {} },
     },
     config = function()
       -- Brief Aside: **What is LSP?**
@@ -650,7 +652,7 @@ require('lazy').setup {
     event = { 'BufWritePre' },
     cmd = { 'ConformInfo' },
     opts = {
-      notify_on_error = false,
+      notify_on_error = true,
       format_on_save = {
         timeout_ms = 500,
         lsp_fallback = true,
