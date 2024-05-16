@@ -116,6 +116,12 @@ return { -- LSP Configuration & Plugins
           },
         },
       },
+      intelephense = {
+        on_attach = function(client)
+          client.server_capabilities.documentRangeFormattingProvider = false
+          client.server_capabilities.documentFormattingProvider = false
+        end,
+      },
     }
 
     require('mason').setup()
