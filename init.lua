@@ -380,7 +380,12 @@ require('lazy').setup {
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
         --
-        -- defaults = {
+        defaults = {
+          file_ignore_patterns = {
+            'bower_components',
+            'static/plugins',
+          },
+        },
         --   mappings = {
         --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
         --   },
@@ -402,7 +407,8 @@ require('lazy').setup {
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
-      vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
+      vim.keymap.set('n', '<leader>st', builtin.builtin, { desc = '[S]earch select [T]elescope' })
+      vim.keymap.set('n', '<leader>ss', builtin.treesitter, { desc = '[S]earch [S]ymbols' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
@@ -554,7 +560,6 @@ require('lazy').setup {
           end
         end,
       })
-
       -- LSP servers and clients are able to communicate to each other what features they support.
       --  By default, Neovim doesn't support everything that is in the LSP Specification.
       --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
@@ -589,7 +594,13 @@ require('lazy').setup {
         -- But for many setups, the LSP (`tsserver`) will work just fine
         tsserver = {},
         --
-
+        tailwindcss = {
+          hovers = true,
+          suggestions = true,
+          root_dir = function(fname)
+            return require('lspconfig').util.root_pattern('tailwind.config.cjs', 'tailwind.config.js', 'postcss.config.js', 'tailwind.config.ts')(fname)
+          end,
+        },
         lua_ls = {
           -- cmd = {...},
           -- filetypes { ...},
@@ -622,6 +633,7 @@ require('lazy').setup {
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format lua code
+        'codespell',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -629,6 +641,7 @@ require('lazy').setup {
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
+
             -- This handles overriding only values explicitly passed
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for tsserver)
@@ -773,8 +786,7 @@ require('lazy').setup {
     lazy = false, -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
-      -- Load the colorscheme here
-      vim.cmd.colorscheme 'tokyonight'
+      vim.cmd.colorscheme 'tokyonight-night'
     end,
   },
 
@@ -791,20 +803,6 @@ require('lazy').setup {
       --  - yinq - [Y]ank [I]nside [N]ext [']quote
       --  - ci'  - [C]hange [I]nside [']quote
       require('mini.ai').setup { n_lines = 500 }
-
-      -- Simple and easy statusline.
-      --  You could remove this setup call if you don't like it,
-      --  and try some other statusline plugin
-      local statusline = require 'mini.statusline'
-      statusline.setup()
-
-      -- You can confiure sections in the statusline by overriding their
-      -- default behavior. For example, here we disable the section for
-      -- cursor information because line numbers are already enabled
-      ---@diagnostic disable-next-line: duplicate-set-field
-      statusline.section_location = function()
-        return ''
-      end
 
       require('mini.map').setup()
 
