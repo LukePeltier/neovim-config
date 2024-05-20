@@ -89,3 +89,6 @@ vim.opt.termguicolors = true
 vim.opt.updatetime = 50
 
 vim.opt.guifont = 'JetBrains Mono NL'
+vim.opt.ve = { 'onemore' }
+
+vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'

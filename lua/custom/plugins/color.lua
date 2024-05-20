@@ -4,5 +4,8 @@ return { -- You can easily change to a different colorscheme.
   priority = 1000, -- make sure to load this before all the other start plugins
   config = function()
     vim.cmd.colorscheme 'tokyonight-night'
+    require('tokyonight').setup {
+      style = 'night',
+    }
   end,
 }
