@@ -2,6 +2,7 @@ return { -- Highlight, edit, and navigate code
   'nvim-treesitter/nvim-treesitter',
   dependencies = {
     'nvim-treesitter/nvim-treesitter-context',
+    'nvim-treesitter/nvim-treesitter-textobjects',
   },
   build = ':TSUpdate',
   config = function()
@@ -15,7 +16,5 @@ return { -- Highlight, edit, and navigate code
         enable = true,
       },
     }
-    --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
-    --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   end,
 }

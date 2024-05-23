@@ -61,10 +61,11 @@ vim.opt.expandtab = true -- Pressing the TAB key will insert spaces instead of a
 vim.opt.softtabstop = 4 -- Number of spaces inserted instead of a TAB character
 vim.opt.shiftwidth = 4 -- Number of spaces inserted when indenting
 
-vim.opt.foldcolumn = '1'
-vim.opt.foldlevel = 99
+vim.opt.foldmethod = 'expr'
+vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.opt.foldtext = ''
+vim.opt.fillchars:append 'fold: '
 vim.opt.foldlevelstart = 99
-vim.opt.foldenable = true
 -- vim.opt.nu = true
 
 vim.opt.swapfile = false

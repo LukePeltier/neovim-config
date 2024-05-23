@@ -101,7 +101,8 @@ return { -- LSP Configuration & Plugins
         hovers = true,
         suggestions = true,
         root_dir = function(fname)
-          return require('lspconfig').util.root_pattern('tailwind.config.cjs', 'tailwind.config.js', 'postcss.config.js', 'tailwind.config.ts')(fname)
+          local root_dir = require('lspconfig').util.root_pattern('tailwind.config.cjs', 'tailwind.config.js', 'postcss.config.js', 'tailwind.config.ts')
+          return root_dir(fname)
         end,
       },
       lua_ls = {
@@ -112,6 +113,23 @@ return { -- LSP Configuration & Plugins
             },
             diagnostics = {
               globals = { 'vim' },
+            },
+          },
+        },
+      },
+      -- phpactor = {
+      --   init_options = {
+      --     ['language_server_phpstan.enabled'] = false,
+      --     ['language_server_psalm.enabled'] = false,
+      --   },
+      -- },
+      bashls = {
+        settings = {
+          bashIde = {
+            explainshellEndpoint = 'https://www.explainshell.com/',
+            shellcheckArguments = '--external-sources',
+            shfmt = {
+              path = '',
             },
           },
         },
