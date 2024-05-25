@@ -9,3 +9,35 @@ return { -- You can easily change to a different colorscheme.
     }
   end,
 }
+-- return {
+--   'catppuccin/nvim',
+--   name = 'catppuccin',
+--   lazy = false,
+--   priority = 1000,
+--   config = function()
+--     require('catppuccin').setup {
+--       flavor = 'mocha',
+--       integrations = {
+--         diffview = true,
+--         fidget = true,
+--         harpoon = true,
+--         cmp = true,
+--         mason = true,
+--         noice = true,
+--         gitsigns = true,
+--         treesitter = true,
+--         telescope = true,
+--         lsp_trouble = true,
+--         which_key = true,
+--         notify = true,
+--         mini = {
+--           enabled = true,
+--           indentscope_color = '',
+--         },
+--         -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
+--       },
+--     }
+--     vim.o.termguicolors = true
+--     vim.cmd.colorscheme 'catppuccin'
+--   end,
+-- }
