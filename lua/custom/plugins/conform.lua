@@ -13,6 +13,7 @@ return { -- Autoformat
       javascript = { { 'prettierd', 'prettier' } },
       typescript = { { 'prettierd', 'prettier' } },
       sh = { 'beautysh' },
+      sql = { 'sql-formatter' },
     },
     formatters = {
       beautysh = {
