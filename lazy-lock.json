@@ -43,7 +43,7 @@
   "telescope.nvim": { "branch": "0.1.x", "commit": "a0bbec21143c7bc5f8bb02e0005fa0b982edc026" },
   "templ.vim": { "branch": "main", "commit": "5cc48b93a4538adca0003c4bc27af844bb16ba24" },
   "todo-comments.nvim": { "branch": "main", "commit": "70a93ce66083699571adc361166504b03cc39c2b" },
-  "trouble.nvim": { "branch": "main", "commit": "791278e498e1147520e4214982767f77ca4a99df" },
+  "trouble.nvim": { "branch": "main", "commit": "4d0f0454ae2a246ec3e0ff541a347164dac23b7b" },
   "vim-abolish": { "branch": "master", "commit": "dcbfe065297d31823561ba787f51056c147aa682" },
   "vim-dadbod": { "branch": "master", "commit": "7888cb7164d69783d3dce4e0283decd26b82538b" },
   "vim-dadbod-completion": { "branch": "master", "commit": "5d5ad196fcde223509d7dabbade0148f7884c5e3" },
