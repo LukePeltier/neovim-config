@@ -147,6 +147,31 @@ return { -- LSP Configuration & Plugins
     vim.list_extend(ensure_installed, {
       'stylua', -- Used to format lua code
       'codespell',
+      'clangd',
+      'perlnavigator',
+      'phpcs',
+      'jq',
+      'phpstan',
+      'rust-analyzer',
+      'bash-language-server',
+      'jdtls',
+      'editorconfig-checker',
+      'typescript-language-server',
+      'cmake-language-server',
+      'prettierd',
+      'lua-language-server',
+      'stylua',
+      'phpactor',
+      'json-lsp',
+      'codespell',
+      'sql-formatter',
+      'beautysh',
+      'svelte-language-server',
+      'htmx-lsp',
+      'tailwindcss-language-server',
+      'pyright',
+      'nginx-language-server',
+      'gopls',
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
