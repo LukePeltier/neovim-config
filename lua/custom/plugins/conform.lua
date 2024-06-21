@@ -20,7 +20,7 @@ return { -- Autoformat
         return
       end
       -- ...additional logic...
-      return { timeout_ms = 500, lsp_fallback = true }
+      return { timeout_ms = 500, lsp_format = 'fallback' }
     end,
     formatters_by_ft = {
       lua = { 'stylua' },

@@ -170,7 +170,6 @@ return { -- LSP Configuration & Plugins
       'htmx-lsp',
       'tailwindcss-language-server',
       'pyright',
-      'nginx-language-server',
       'gopls',
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
