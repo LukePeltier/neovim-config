@@ -5,8 +5,6 @@ return {
     local lint = require 'lint'
     lint.linters_by_ft = {
       editorconfig = { 'editorconfig-checker' },
-      sh = { 'shellcheck' },
-      bash = { 'shellcheck' },
       php = { 'phpcs', 'phpstan' },
     }
     local phpcs = lint.linters.phpcs

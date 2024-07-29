@@ -93,17 +93,8 @@ return { -- LSP Configuration & Plugins
         end,
       },
       gopls = {},
-      -- pyright = {},
       rust_analyzer = {},
       tsserver = {},
-      tailwindcss = {
-        hovers = true,
-        suggestions = true,
-        root_dir = function(fname)
-          local root_dir = require('lspconfig').util.root_pattern('tailwind.config.cjs', 'tailwind.config.js', 'postcss.config.js', 'tailwind.config.ts')
-          return root_dir(fname)
-        end,
-      },
       lua_ls = {
         settings = {
           Lua = {
@@ -123,15 +114,10 @@ return { -- LSP Configuration & Plugins
       --   },
       -- },
       bashls = {
-        settings = {
-          bashIde = {
-            explainshellEndpoint = 'https://www.explainshell.com/',
-            shellcheckArguments = '--external-sources',
-            shfmt = {
-              path = '',
-            },
-          },
-        },
+        on_attach = function(client)
+          client.server_capabilities.documentRangeFormattingProvider = false
+          client.server_capabilities.documentFormattingProvider = false
+        end,
       },
       -- intelephense = {
       --   on_attach = function(client)
@@ -146,7 +132,6 @@ return { -- LSP Configuration & Plugins
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
       'stylua', -- Used to format lua code
-      'codespell',
       'clangd',
       'perlnavigator',
       'phpcs',
@@ -165,11 +150,7 @@ return { -- LSP Configuration & Plugins
       'json-lsp',
       'codespell',
       'sql-formatter',
-      'beautysh',
       'svelte-language-server',
-      'htmx-lsp',
-      'tailwindcss-language-server',
-      'pyright',
       'gopls',
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }

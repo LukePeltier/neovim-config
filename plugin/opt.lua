@@ -13,8 +13,8 @@ vim.opt.showmode = false
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-vim.opt.clipboard = 'unnamedplus'
-
+-- Check if running in WSL
+vim.o.clipboard = 'unnamedplus'
 -- Enable break indent
 vim.opt.breakindent = true
 
@@ -89,7 +89,7 @@ vim.opt.termguicolors = true
 
 vim.opt.updatetime = 50
 
-vim.opt.guifont = 'JetBrains Mono NL'
+vim.opt.guifont = 'JetBrainsMono Nerd Font Mono'
 vim.opt.ve = { 'onemore' }
 
 vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
