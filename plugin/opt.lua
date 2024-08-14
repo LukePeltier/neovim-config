@@ -19,7 +19,6 @@ vim.o.clipboard = 'unnamedplus'
 vim.opt.breakindent = true
 
 -- Save undo history
-vim.opt.undofile = true
 
 -- Case-insensitive searching UNLESS \C or capital in search
 vim.opt.ignorecase = true
@@ -66,7 +65,6 @@ vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.opt.foldtext = ''
 vim.opt.fillchars:append 'fold: '
 vim.opt.foldlevelstart = 99
--- vim.opt.nu = true
 
 vim.opt.swapfile = false
 vim.opt.backup = false
@@ -83,13 +81,14 @@ vim.opt.smartindent = true
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
 
-vim.opt.scrolloff = 5
-
 vim.opt.termguicolors = true
 
-vim.opt.updatetime = 50
-
-vim.opt.guifont = 'JetBrainsMono Nerd Font Mono'
-vim.opt.ve = { 'onemore' }
+vim.opt.ve = 'onemore'
 
 vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
+
+vim.filetype.add {
+  extension = {
+    pcss = 'css',
+  },
+}

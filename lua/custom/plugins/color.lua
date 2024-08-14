@@ -17,7 +17,9 @@ return {
   config = function()
     require('catppuccin').setup {
       flavor = 'mocha',
+      default_integrations = true,
       integrations = {
+        alpha = true,
         diffview = true,
         fidget = true,
         harpoon = true,
@@ -26,8 +28,9 @@ return {
         noice = true,
         gitsigns = true,
         treesitter = true,
-        telescope = true,
-        lsp_trouble = true,
+        telescope = {
+          enabled = true,
+        },
         which_key = true,
         notify = true,
         mini = {
