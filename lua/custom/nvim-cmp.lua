@@ -11,6 +11,8 @@ require('luasnip.loaders.from_vscode').lazy_load()
 
 cmp.setup {
   formatting = {
+    expandable_indicator = true,
+    fields = { 'abbr', 'kind', 'menu' },
     format = lspkind.cmp_format {
       mode = 'symbol',
       maxwidth = 50,
@@ -45,8 +47,8 @@ cmp.setup {
     end, { 'i', 's' }),
   },
   sources = {
-    { name = 'luasnip' },
     { name = 'nvim_lsp' },
+    { name = 'luasnip' },
     { name = 'path' },
     { name = 'buffer' },
   },

@@ -1,18 +1,31 @@
 return { -- LSP Configuration & Plugins
   'neovim/nvim-lspconfig',
   dependencies = {
-    -- Automatically install LSPs and related tools to stdpath for neovim
     'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
     'WhoIsSethDaniel/mason-tool-installer.nvim',
-
-    -- Useful status updates for LSP.
-    -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
     { 'j-hui/fidget.nvim', opts = {} },
+    { 'https://git.sr.ht/~whynothugo/lsp_lines.nvim' },
+    'stevearc/conform.nvim',
+    -- Schema information
+    'b0o/SchemaStore.nvim',
+    {
+      'folke/lazydev.nvim',
+      ft = 'lua',
+      lazy = true,
+
+      opts = {
+        library = {
+          -- See the configuration section for more details
+          -- Load luvit types when the `vim.uv` word is found
+          { path = 'luvit-meta/library', words = { 'vim%.uv' } },
+        },
+      },
+    },
   },
   config = function()
     vim.api.nvim_create_autocmd('LspAttach', {
-      group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
+      group = vim.api.nvim_create_augroup('luke-lsp-attach', { clear = true }),
       callback = function(event)
         local map = function(keys, func, desc)
           vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
@@ -77,7 +90,9 @@ return { -- LSP Configuration & Plugins
       end,
     })
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+    if pcall(require, 'cmp_nvim_lsp') then
+      capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+    end
 
     --  Add any additional override configuration in the following tables. Available keys are:
     --  - cmd (table): Override the default command used to start the server
@@ -86,12 +101,6 @@ return { -- LSP Configuration & Plugins
     --  - settings (table): Override the default settings passed when initializing the server.
     --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
     local servers = {
-      clangd = {
-        on_attach = function(client)
-          client.server_capabilities.documentRangeFormattingProvider = false
-          client.server_capabilities.documentFormattingProvider = false
-        end,
-      },
       gopls = {},
       rust_analyzer = {},
       tsserver = {},
@@ -112,18 +121,6 @@ return { -- LSP Configuration & Plugins
       --     ['language_server_phpstan.enabled'] = false,
       --     ['language_server_psalm.enabled'] = false,
       --   },
-      -- },
-      bashls = {
-        on_attach = function(client)
-          client.server_capabilities.documentRangeFormattingProvider = false
-          client.server_capabilities.documentFormattingProvider = false
-        end,
-      },
-      -- intelephense = {
-      --   on_attach = function(client)
-      --     client.server_capabilities.documentRangeFormattingProvider = false
-      --     client.server_capabilities.documentFormattingProvider = false
-      --   end,
       -- },
     }
 
@@ -146,10 +143,9 @@ return { -- LSP Configuration & Plugins
       'prettierd',
       'lua-language-server',
       'stylua',
-      'phpactor',
+      'intelephense',
       'json-lsp',
       'codespell',
-      'sql-formatter',
       'svelte-language-server',
       'gopls',
     })
@@ -164,5 +160,63 @@ return { -- LSP Configuration & Plugins
         end,
       },
     }
+
+    local conform = require 'conform'
+    conform.setup {
+      notify_on_error = true,
+      formatters_by_ft = {
+        lua = { 'stylua' },
+        javascript = { 'prettierd', 'prettier', stop_after_first = true },
+        typescript = { 'prettierd', 'prettier', stop_after_first = true },
+        sh = { 'beautysh' },
+      },
+      default_format_opts = {
+        lsp_format = 'fallback',
+      },
+      format_on_save = function(bufnr)
+        -- Disable autoformat on certain filetypes
+        local ignore_filetypes = { 'php', 'cpp' }
+        if vim.tbl_contains(ignore_filetypes, vim.bo[bufnr].filetype) then
+          return
+        end
+        -- Disable with a global or buffer-local variable
+        if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+          return
+        end
+        -- Disable autoformat for files in a certain path
+        local bufname = vim.api.nvim_buf_get_name(bufnr)
+        if bufname:match '/node_modules/' then
+          return
+        end
+        -- ...additional logic...
+        return { timeout_ms = 500, lsp_format = 'fallback' }
+      end,
+      formatters = {
+        beautysh = {
+          prepend_args = { '-i', '3' },
+        },
+        injected = {
+          options = {
+            ignore_errors = false,
+            lang_to_formatters = {
+              sql = { 'sleek' },
+              mysql = { 'sleek' },
+            },
+          },
+        },
+      },
+    }
+    vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+
+    require('lsp_lines').setup()
+    vim.diagnostic.config { virtual_text = true, virtual_lines = false }
+    vim.keymap.set('', '<leader>l', function()
+      local config = vim.diagnostic.config() or {}
+      if config.virtual_text then
+        vim.diagnostic.config { virtual_text = false, virtual_lines = true }
+      else
+        vim.diagnostic.config { virtual_text = true, virtual_lines = false }
+      end
+    end, { desc = 'Toggle lsp_lines' })
   end,
 }

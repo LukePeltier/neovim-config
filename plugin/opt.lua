@@ -10,15 +10,8 @@ vim.opt.mouse = 'a'
 -- Don't show the mode, since it's already in status line
 vim.opt.showmode = false
 
--- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
--- Check if running in WSL
-vim.o.clipboard = 'unnamedplus'
 -- Enable break indent
 vim.opt.breakindent = true
-
--- Save undo history
 
 -- Case-insensitive searching UNLESS \C or capital in search
 vim.opt.ignorecase = true
