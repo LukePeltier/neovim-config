@@ -1,4 +1,4 @@
-return { -- LSP Configuration & Plugins
+return { -- LSP Configuration & Pluginslsp
   'neovim/nvim-lspconfig',
   dependencies = {
     'williamboman/mason.nvim',
@@ -103,7 +103,7 @@ return { -- LSP Configuration & Plugins
     local servers = {
       gopls = {},
       rust_analyzer = {},
-      tsserver = {},
+      ts_ls = {},
       lua_ls = {
         settings = {
           Lua = {
@@ -169,6 +169,8 @@ return { -- LSP Configuration & Plugins
         javascript = { 'prettierd', 'prettier', stop_after_first = true },
         typescript = { 'prettierd', 'prettier', stop_after_first = true },
         sh = { 'beautysh' },
+        sql = { 'sleek' },
+        nix = { 'alejandra' },
       },
       default_format_opts = {
         lsp_format = 'fallback',
@@ -195,14 +197,13 @@ return { -- LSP Configuration & Plugins
         beautysh = {
           prepend_args = { '-i', '3' },
         },
-        injected = {
-          options = {
-            ignore_errors = false,
-            lang_to_formatters = {
-              sql = { 'sleek' },
-              mysql = { 'sleek' },
-            },
-          },
+        sleek = {
+          command = 'sleek',
+          stdin = true,
+        },
+        alejandra = {
+          command = 'alejandra',
+          stdin = true,
         },
       },
     }
