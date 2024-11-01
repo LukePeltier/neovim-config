@@ -103,7 +103,6 @@ return { -- LSP Configuration & Pluginslsp
     local servers = {
       gopls = {},
       rust_analyzer = {},
-      ts_ls = {},
       lua_ls = {
         settings = {
           Lua = {
@@ -138,7 +137,6 @@ return { -- LSP Configuration & Pluginslsp
       'bash-language-server',
       'jdtls',
       'editorconfig-checker',
-      'typescript-language-server',
       'cmake-language-server',
       'prettierd',
       'lua-language-server',

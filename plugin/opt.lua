@@ -78,8 +78,6 @@ vim.opt.termguicolors = true
 
 vim.opt.ve = 'onemore'
 
-vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
-
 vim.filetype.add {
   extension = {
     pcss = 'css',
