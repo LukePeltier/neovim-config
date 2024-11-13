@@ -48,10 +48,10 @@ vim.opt.scrolloff = 10
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
-vim.opt.tabstop = 4 -- A TAB character looks like 4 spaces
+vim.opt.tabstop = 2 -- A TAB character looks like 4 spaces
 vim.opt.expandtab = true -- Pressing the TAB key will insert spaces instead of a TAB character
-vim.opt.softtabstop = 4 -- Number of spaces inserted instead of a TAB character
-vim.opt.shiftwidth = 4 -- Number of spaces inserted when indenting
+vim.opt.softtabstop = 2 -- Number of spaces inserted instead of a TAB character
+vim.opt.shiftwidth = 2 -- Number of spaces inserted when indenting
 
 vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
@@ -67,9 +67,6 @@ local undodir = home_dir .. (path_sep == '\\' and '\\.vim\\undodir' or '/.vim/un
 
 vim.opt.undodir = undodir
 vim.opt.undofile = true
-
-vim.opt.autoindent = true
-vim.opt.smartindent = true
 
 vim.opt.hlsearch = true
 vim.opt.incsearch = true

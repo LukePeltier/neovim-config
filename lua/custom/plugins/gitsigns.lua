@@ -1,5 +1,6 @@
 return {
   'lewis6991/gitsigns.nvim',
+  branch = 'main',
   event = { 'BufReadPost', 'BufWritePost', 'BufNewFile' },
   opts = {
     signs = {
@@ -16,6 +17,11 @@ return {
       delete = { text = '' },
       topdelete = { text = '' },
       changedelete = { text = '▎' },
+    },
+    current_line_blame = true,
+    current_line_blame_opts = {
+      delay = 250,
+      ignore_whitespace = true,
     },
   },
 }

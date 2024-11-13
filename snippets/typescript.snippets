@@ -1,0 +1,8 @@
+extends javascript
+
+snippet zs "zod schema"
+    export const ${1:Name}JSONSchema = z.object({
+        ${2:properties}
+    });
+
+    export type ${1}JSON = z.infer<typeof ${1}JSONSchema>;

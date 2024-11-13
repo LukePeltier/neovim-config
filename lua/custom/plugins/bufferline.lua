@@ -18,8 +18,10 @@ return {
     { ']B', '<cmd>BufferLineMoveNext<cr>', desc = 'Move buffer next' },
   },
   config = function()
+    vim.opt.termguicolors = true
     require('bufferline').setup {
       options = {
+        always_show_bufferline = false,
         numbers = 'buffer_id',
         diagnostics = 'nvim_lsp',
         diagnostics_indicator = function(count, level, diagnostics_dict, context)
