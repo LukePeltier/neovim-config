@@ -90,15 +90,16 @@ cmp.setup {
   }),
 }
 
-cmp.setup.cmdline({ ':' }, {
+cmp.setup.cmdline(':', {
   mapping = cmp.mapping.preset.cmdline(),
   sources = {
-    { name = 'path' },
+    { name = 'cmdline', option = {
+      ignore_cmds = { 'Man', '!' },
+    } },
   },
   {
-    { name = 'cmdline' },
+    { name = 'path' },
   },
-  matching = { disallow_symbol_nonprefix_matching = false },
 })
 
 cmp.setup.filetype({ 'sql', 'mysql' }, {

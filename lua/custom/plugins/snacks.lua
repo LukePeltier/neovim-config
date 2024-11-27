@@ -38,7 +38,7 @@ return {
       function()
         Snacks.notifier.show_history()
       end,
-      desc = 'Delete Buffer',
+      desc = 'Show Notification History',
     },
     {
       '<leader>gg',

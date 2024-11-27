@@ -1,11 +1,9 @@
 return {
   'folke/noice.nvim',
   event = 'VeryLazy',
-  opts = {
-    -- add any options here
-  },
   dependencies = {
     'MunifTanjim/nui.nvim',
+    'rcarriga/nvim-notify',
   },
   config = function()
     require('noice').setup {
@@ -15,22 +13,6 @@ return {
           ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
           ['vim.lsp.util.stylize_markdown'] = true,
           ['cmp.entry.get_documentation'] = true, -- requires hrsh7th/nvim-cmp
-        },
-        hover = {
-          silent = true,
-        },
-      },
-      routes = {
-        {
-          filter = {
-            event = 'msg_show',
-            any = {
-              { find = '%d+L, %d+B' },
-              { find = '; after #%d+' },
-              { find = '; before #%d+' },
-            },
-          },
-          view = 'mini',
         },
       },
       -- you can enable a preset for easier configuration

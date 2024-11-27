@@ -80,3 +80,12 @@ vim.filetype.add {
     pcss = 'css',
   },
 }
+
+vim.opt.shada = { "'10", '<50', 's10', 'h' }
+
+vim.cmd.colorscheme 'kanagawa'
+
+vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
+
+vim.opt.wrap = true
+vim.opt.linebreak = true

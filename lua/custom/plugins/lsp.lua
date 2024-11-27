@@ -115,12 +115,32 @@ return { -- LSP Configuration & Pluginslsp
           },
         },
       },
-      -- phpactor = {
-      --   init_options = {
-      --     ['language_server_phpstan.enabled'] = false,
-      --     ['language_server_psalm.enabled'] = false,
-      --   },
-      -- },
+      svelte = {
+        capabilities = {
+          workspace = {
+            didChangeWatchedFiles = {
+              dynamicRegistration = true,
+            },
+          },
+        },
+        on_attach = function(client, bufnr)
+          vim.api.nvim_create_autocmd('BufWritePost', {
+            pattern = { '*.js', '*.ts' },
+            group = vim.api.nvim_create_augroup('svelte_ondidchangetsorjsfile', { clear = true }),
+            callback = function(ctx)
+              client.notify('$/onDidChangeTsOrJsFile', { uri = ctx.match })
+            end,
+          })
+        end,
+      },
+      jsonls = {
+        settings = {
+          json = {
+            schemas = require('schemastore').json.schemas(),
+            validate = { enable = true },
+          },
+        },
+      },
     }
 
     require('mason').setup()

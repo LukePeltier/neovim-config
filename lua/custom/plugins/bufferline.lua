@@ -17,23 +17,20 @@ return {
     { '[B', '<cmd>BufferLineMovePrev<cr>', desc = 'Move buffer prev' },
     { ']B', '<cmd>BufferLineMoveNext<cr>', desc = 'Move buffer next' },
   },
-  config = function()
-    vim.opt.termguicolors = true
-    require('bufferline').setup {
-      options = {
-        always_show_bufferline = false,
-        numbers = 'buffer_id',
-        diagnostics = 'nvim_lsp',
-        diagnostics_indicator = function(count, level, diagnostics_dict, context)
-          local s = ' '
-          for e, n in pairs(diagnostics_dict) do
-            local sym = e == 'error' and ' ' or (e == 'warning' and ' ' or ' ')
-            s = s .. n .. sym
-          end
-          return s
-        end,
-      },
-    }
-  end,
+  opts = {
+    options = {
+      always_show_bufferline = true,
+      numbers = 'buffer_id',
+      diagnostics = 'nvim_lsp',
+      diagnostics_indicator = function(count, level, diagnostics_dict, context)
+        local s = ' '
+        for e, n in pairs(diagnostics_dict) do
+          local sym = e == 'error' and ' ' or (e == 'warning' and ' ' or ' ')
+          s = s .. n .. sym
+        end
+        return s
+      end,
+    },
+  },
 }
 -- return {}

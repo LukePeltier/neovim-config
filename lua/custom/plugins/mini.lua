@@ -9,9 +9,7 @@ return { -- Collection of various small independent plugins/modules
     --  - ci'  - [C]hange [I]nside [']quote
     require('mini.ai').setup { n_lines = 500 }
 
-    require('mini.indentscope').setup()
     require('mini.splitjoin').setup()
-    require('mini.align').setup()
 
     -- ... and there is more!
     --  Check out: https://github.com/echasnovski/mini.nvim
