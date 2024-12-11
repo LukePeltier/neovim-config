@@ -28,7 +28,8 @@ vim.keymap.set('n', '<A-k>', function()
     vim.cmd [[m .-2<CR>==]]
   end
 end)
-
+vim.keymap.set('n', ']g', vim.diagnostic.goto_next)
+vim.keymap.set('n', '[g', vim.diagnostic.goto_prev)
 -- Move to previous/next
 -- map('n', '<a-,>', '<cmd>bufferprevious<cr>', opts)
 -- map('n', '<a-.>', '<cmd>buffernext<cr>', opts)

@@ -189,13 +189,16 @@ return { -- LSP Configuration & Pluginslsp
         sh = { 'beautysh' },
         sql = { 'sleek' },
         nix = { 'alejandra' },
+        ocaml = { 'ocamlformat' },
+        cpp = { 'clang-format' },
+        c = { 'clang-format' },
       },
       default_format_opts = {
         lsp_format = 'fallback',
       },
       format_on_save = function(bufnr)
         -- Disable autoformat on certain filetypes
-        local ignore_filetypes = { 'php', 'cpp' }
+        local ignore_filetypes = { 'php' }
         if vim.tbl_contains(ignore_filetypes, vim.bo[bufnr].filetype) then
           return
         end
