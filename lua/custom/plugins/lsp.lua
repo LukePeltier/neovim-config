@@ -1,10 +1,11 @@
 return { -- LSP Configuration & Pluginslsp
   'neovim/nvim-lspconfig',
   dependencies = {
+    'saghen/blink.cmp',
     'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
     'WhoIsSethDaniel/mason-tool-installer.nvim',
-    { 'j-hui/fidget.nvim', opts = {} },
+    'j-hui/fidget.nvim',
     { 'https://git.sr.ht/~whynothugo/lsp_lines.nvim' },
     'stevearc/conform.nvim',
     -- Schema information
@@ -37,7 +38,10 @@ return { -- LSP Configuration & Pluginslsp
         map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 
         -- Find references for the word under your cursor.
-        map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+        map('gr', function()
+          local opts = require('telescope.themes').get_ivy {}
+          require('telescope.builtin').lsp_references(opts)
+        end, '[G]oto [R]eferences')
 
         -- Jump to the implementation of the word under your cursor.
         --  Useful when your language has ways of declaring types without an actual implementation.
@@ -90,8 +94,8 @@ return { -- LSP Configuration & Pluginslsp
       end,
     })
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    if pcall(require, 'cmp_nvim_lsp') then
-      capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+    if pcall(require, 'blink.cpm') then
+      capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities())
     end
 
     --  Add any additional override configuration in the following tables. Available keys are:
@@ -155,7 +159,6 @@ return { -- LSP Configuration & Pluginslsp
       'phpstan',
       'rust-analyzer',
       'bash-language-server',
-      'jdtls',
       'editorconfig-checker',
       'cmake-language-server',
       'prettierd',
@@ -170,6 +173,8 @@ return { -- LSP Configuration & Pluginslsp
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
     require('mason-lspconfig').setup {
+      ensure_installed = {},
+      automatic_installation = false,
       handlers = {
         function(server_name)
           local server = servers[server_name] or {}
@@ -178,6 +183,13 @@ return { -- LSP Configuration & Pluginslsp
         end,
       },
     }
+
+    -- local jdtls_config = {
+    --   cmd = { '/usr/local/lib/jdtls/bin/jdtls' },
+    --   root_dir = vim.fs.dirname(vim.fs.find({ 'gradlew', '.git', 'mvnw' }, { upward = true })[1]),
+    -- }
+    --
+    -- require('jdtls').start_or_attach(jdtls_config)
 
     local conform = require 'conform'
     conform.setup {
