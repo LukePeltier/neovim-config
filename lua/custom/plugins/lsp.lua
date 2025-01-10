@@ -23,6 +23,7 @@ return { -- LSP Configuration & Pluginslsp
         },
       },
     },
+    'nvim-java/nvim-java',
   },
   config = function()
     vim.api.nvim_create_autocmd('LspAttach', {
@@ -106,7 +107,6 @@ return { -- LSP Configuration & Pluginslsp
     --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
     local servers = {
       gopls = {},
-      rust_analyzer = {},
       lua_ls = {
         settings = {
           Lua = {
@@ -145,6 +145,7 @@ return { -- LSP Configuration & Pluginslsp
           },
         },
       },
+      jdtls = {},
     }
 
     require('mason').setup()
@@ -183,13 +184,20 @@ return { -- LSP Configuration & Pluginslsp
         end,
       },
     }
-
-    -- local jdtls_config = {
-    --   cmd = { '/usr/local/lib/jdtls/bin/jdtls' },
-    --   root_dir = vim.fs.dirname(vim.fs.find({ 'gradlew', '.git', 'mvnw' }, { upward = true })[1]),
-    -- }
-    --
-    -- require('jdtls').start_or_attach(jdtls_config)
+    vim.api.nvim_create_autocmd('LspAttach', {
+      group = vim.api.nvim_create_augroup('lsp_attach_disable_ruff_hover', { clear = true }),
+      callback = function(args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        if client == nil then
+          return
+        end
+        if client.name == 'ruff' then
+          -- Disable hover in favor of Pyright
+          client.server_capabilities.hoverProvider = false
+        end
+      end,
+      desc = 'LSP: Disable hover capability from Ruff',
+    })
 
     local conform = require 'conform'
     conform.setup {
@@ -200,6 +208,7 @@ return { -- LSP Configuration & Pluginslsp
         typescript = { 'prettierd', 'prettier', stop_after_first = true },
         sh = { 'beautysh' },
         sql = { 'sleek' },
+        mysql = { 'sleek' },
         nix = { 'alejandra' },
         ocaml = { 'ocamlformat' },
         cpp = { 'clang-format' },
