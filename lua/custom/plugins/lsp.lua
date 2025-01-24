@@ -107,6 +107,19 @@ return { -- LSP Configuration & Pluginslsp
     --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
     local servers = {
       gopls = {},
+      rust_analyzer = {
+        settings = {
+          ['rust-analyzer'] = {
+            checkOnSave = {
+              allFeatures = true,
+              command = 'clippy',
+            },
+            diagnostics = {
+              enable = true,
+            },
+          },
+        },
+      },
       lua_ls = {
         settings = {
           Lua = {
@@ -146,6 +159,11 @@ return { -- LSP Configuration & Pluginslsp
         },
       },
       jdtls = {},
+      ruff = {
+        init_options = {
+          settings = {},
+        },
+      },
     }
 
     require('mason').setup()
@@ -153,23 +171,7 @@ return { -- LSP Configuration & Pluginslsp
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
       'stylua', -- Used to format lua code
-      'clangd',
-      'perlnavigator',
-      'phpcs',
-      'jq',
-      'phpstan',
-      'rust-analyzer',
-      'bash-language-server',
-      'editorconfig-checker',
-      'cmake-language-server',
-      'prettierd',
-      'lua-language-server',
-      'stylua',
-      'intelephense',
-      'json-lsp',
       'codespell',
-      'svelte-language-server',
-      'gopls',
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
