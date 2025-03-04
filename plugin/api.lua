@@ -41,3 +41,14 @@ vim.api.nvim_create_autocmd({ 'VimEnter' }, {
   end,
   nested = true,
 })
+
+-- Add this to your Neovim config
+vim.api.nvim_create_user_command('ToggleAutoformat', function()
+  if vim.g.disable_autoformat then
+    vim.g.disable_autoformat = false
+    print 'Autoformat enabled for current buffer'
+  else
+    vim.g.disable_autoformat = true
+    print 'Autoformat disabled for current buffer'
+  end
+end, {})

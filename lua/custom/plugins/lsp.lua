@@ -1,6 +1,7 @@
 return { -- LSP Configuration & Pluginslsp
   'neovim/nvim-lspconfig',
   dependencies = {
+    'folke/neoconf.nvim',
     'saghen/blink.cmp',
     'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
@@ -174,6 +175,8 @@ return { -- LSP Configuration & Pluginslsp
     }
 
     require('mason').setup()
+
+    require('neoconf').setup()
 
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
