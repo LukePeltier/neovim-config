@@ -194,6 +194,8 @@ return { -- LSP Configuration & Pluginslsp
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
+    local lspconfig = require 'lspconfig'
+
     require('mason-lspconfig').setup {
       ensure_installed = {},
       automatic_installation = false,
@@ -201,8 +203,16 @@ return { -- LSP Configuration & Pluginslsp
         function(server_name)
           local server = servers[server_name] or {}
           server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-          require('lspconfig')[server_name].setup(server)
+          lspconfig[server_name].setup(server)
         end,
+      },
+    }
+
+    lspconfig.zls.setup {
+      settings = {
+        zls = {
+          semantic_tokens = 'partial',
+        },
       },
     }
     vim.api.nvim_create_autocmd('LspAttach', {
