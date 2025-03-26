@@ -33,7 +33,7 @@ return {
       },
     },
 
-    version = 'v0.*',
+    version = '*',
 
     opts = {
       keymap = {
@@ -45,7 +45,6 @@ return {
       },
 
       appearance = {
-        use_nvim_cmp_as_default = true,
         nerd_font_variant = 'mono',
       },
 
@@ -65,8 +64,7 @@ return {
           },
         },
       },
-
-      signature = { enabled = true },
+      fuzzy = { implementation = 'prefer_rust_with_warning' },
     },
   },
 }
