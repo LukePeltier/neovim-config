@@ -7,9 +7,8 @@ return {
   lazy = false,
   config = function()
     local alpha = require 'alpha'
-    local theta = require 'alpha.themes.theta'
     local dashboard = require 'alpha.themes.dashboard'
-    local startify = require 'alpha.themes.startify'
+    local theta = require 'alpha.themes.theta'
     theta.buttons.val = {
       dashboard.button('e', '  New file', '<cmd>ene<CR>'),
       dashboard.button('SPC s f', '󰈞  Find file'),
@@ -18,6 +17,6 @@ return {
       dashboard.button('u', '  Update plugins', '<cmd>Lazy sync<CR>'),
       dashboard.button('q', '󰅚  Quit', '<cmd>qa<CR>'),
     }
-    alpha.setup(startify.config)
+    alpha.setup(theta.config)
   end,
 }

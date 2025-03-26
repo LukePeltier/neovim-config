@@ -14,33 +14,33 @@ vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
   pattern = { '*' },
   command = [[%s/\s\+$//e]],
 })
-local persistenceGroup = vim.api.nvim_create_augroup('Persistence', { clear = true })
-local home = vim.fn.expand '~'
-local disabled_dirs = {
-  home,
-  home .. '/Downloads',
-  '/private/tmp',
-}
+-- local persistenceGroup = vim.api.nvim_create_augroup('Persistence', { clear = true })
+-- local home = vim.fn.expand '~'
+-- local disabled_dirs = {
+--   home,
+--   home .. '/Downloads',
+--   '/private/tmp',
+-- }
 
--- disable persistence for certain directories
-vim.api.nvim_create_autocmd({ 'VimEnter' }, {
-  group = persistenceGroup,
-  callback = function()
-    local cwd = vim.fn.getcwd()
-    for _, path in pairs(disabled_dirs) do
-      if path == cwd then
-        require('persistence').stop()
-        return
-      end
-    end
-    if vim.fn.argc() == 0 then
-      require('persistence').load()
-    else
-      require('persistence').stop()
-    end
-  end,
-  nested = true,
-})
+-- -- disable persistence for certain directories
+-- vim.api.nvim_create_autocmd({ 'VimEnter' }, {
+--   group = persistenceGroup,
+--   callback = function()
+--     local cwd = vim.fn.getcwd()
+--     for _, path in pairs(disabled_dirs) do
+--       if path == cwd then
+--         require('persistence').stop()
+--         return
+--       end
+--     end
+--     if vim.fn.argc() == 0 then
+--       require('persistence').load()
+--     else
+--       require('persistence').stop()
+--     end
+--   end,
+--   nested = true,
+-- })
 
 -- Add this to your Neovim config
 vim.api.nvim_create_user_command('ToggleAutoformat', function()
@@ -51,4 +51,8 @@ vim.api.nvim_create_user_command('ToggleAutoformat', function()
     vim.g.disable_autoformat = true
     print 'Autoformat disabled for current buffer'
   end
+end, {})
+
+vim.api.nvim_create_user_command('DeeBeeOpen', function()
+  require('dbee').open()
 end, {})

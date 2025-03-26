@@ -172,6 +172,16 @@ return { -- LSP Configuration & Pluginslsp
           settings = {},
         },
       },
+      basedpyright = {
+        settings = {
+          basedpyright = {
+            disableOrganizeImports = true,
+            analysis = {
+              ignore = { '*' },
+            },
+          },
+        },
+      },
     }
 
     require('mason').setup()

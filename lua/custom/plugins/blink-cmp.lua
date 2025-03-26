@@ -1,39 +1,72 @@
 return {
-  'saghen/blink.cmp',
-  dependencies = {
-    'rafamadriz/friendly-snippets',
-    { 'L3MON4D3/LuaSnip', version = 'v2.*' },
+  {
+    'saghen/blink.compat',
+    -- use the latest release, via version = '*', if you also use the latest release for blink.cmp
+    version = '*',
+    -- lazy.nvim will automatically load the plugin when it's required by blink.cmp
+    lazy = true,
+    -- make sure to set opts so that lazy.nvim calls blink.compat's setup
+    opts = {},
   },
-
-  version = 'v0.*',
-
-  opts = {
-    keymap = {
-      preset = 'default',
-    },
-
-    cmdline = {
-      completion = { menu = { auto_show = true } },
-    },
-
-    appearance = {
-      use_nvim_cmp_as_default = true,
-      nerd_font_variant = 'mono',
-    },
-
-    snippets = {
-      preset = 'luasnip',
-    },
-    -- default list of enabled providers defined so that you can extend it
-    -- elsewhere in your config, without redefining it, via `opts_extend`
-    sources = {
-      default = { 'lsp', 'path', 'snippets', 'buffer', 'dadbod', 'markdown' },
-      providers = {
-        dadbod = { name = 'Dadbod', module = 'vim_dadbod_completion.blink' },
-        markdown = { name = 'RenderMarkdown', module = 'render-markdown.integ.blink', fallbacks = { 'lsp' } },
+  {
+    'saghen/blink.cmp',
+    dependencies = {
+      'rafamadriz/friendly-snippets',
+      {
+        'L3MON4D3/LuaSnip',
+        version = 'v2.*',
+        build = 'make install_jsregexp',
+        dependencies = {
+          'rafamadriz/friendly-snippets',
+        },
+        config = function()
+          require('luasnip.loaders.from_vscode').lazy_load()
+        end,
+      },
+      {
+        'MattiasMTS/cmp-dbee',
+        dependencies = {
+          { 'kndndrj/nvim-dbee' },
+        },
+        ft = 'sql', -- optional but good to have
+        opts = {}, -- needed
       },
     },
 
-    signature = { enabled = true },
+    version = 'v0.*',
+
+    opts = {
+      keymap = {
+        preset = 'default',
+      },
+
+      cmdline = {
+        completion = { menu = { auto_show = true } },
+      },
+
+      appearance = {
+        use_nvim_cmp_as_default = true,
+        nerd_font_variant = 'mono',
+      },
+
+      snippets = {
+        preset = 'luasnip',
+      },
+      -- default list of enabled providers defined so that you can extend it
+      -- elsewhere in your config, without redefining it, via `opts_extend`
+      sources = {
+        default = { 'lsp', 'path', 'snippets', 'buffer', 'dadbod', 'deebee', 'markdown' },
+        providers = {
+          dadbod = { name = 'Dadbod', module = 'vim_dadbod_completion.blink' },
+          markdown = { name = 'RenderMarkdown', module = 'render-markdown.integ.blink', fallbacks = { 'lsp' } },
+          deebee = {
+            name = 'cmp-dbee',
+            module = 'blink.compat.source',
+          },
+        },
+      },
+
+      signature = { enabled = true },
+    },
   },
 }

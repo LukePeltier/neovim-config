@@ -5,7 +5,6 @@ require('telescope').setup {
     file_ignore_patterns = {
       'bower_components',
       'static/plugins',
-      '.git',
     },
     prompt_prefix = '   ',
     selection_caret = ' ',
