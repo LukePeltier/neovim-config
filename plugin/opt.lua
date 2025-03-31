@@ -89,3 +89,5 @@ vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,
 
 vim.opt.wrap = true
 vim.opt.linebreak = true
+
+vim.diagnostic.config { virtual_text = true, virtual_lines = false }

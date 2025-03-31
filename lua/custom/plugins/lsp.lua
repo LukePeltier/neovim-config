@@ -34,13 +34,13 @@ return { -- LSP Configuration & Pluginslsp
           vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
         end
 
-        -- Jump to the definition of the word under your cursor.
-        --  This is where a variable was first declared, or where a function is defined, etc.
+        -- Jump to the definition  of the word under your cursor.
+        --  This is where a variab le was first declared, or where a function is defined, etc.
         --  To jump back, press <C-T>.
         map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 
         -- Find references for the word under your cursor.
-        map('gr', function()
+        map('<leader>gr', function()
           local opts = require('telescope.themes').get_ivy {}
           require('telescope.builtin').lsp_references(opts)
         end, '[G]oto [R]eferences')
@@ -281,16 +281,5 @@ return { -- LSP Configuration & Pluginslsp
       },
     }
     vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
-
-    require('lsp_lines').setup()
-    vim.diagnostic.config { virtual_text = true, virtual_lines = false }
-    vim.keymap.set('', '<leader>l', function()
-      local config = vim.diagnostic.config() or {}
-      if config.virtual_text then
-        vim.diagnostic.config { virtual_text = false, virtual_lines = true }
-      else
-        vim.diagnostic.config { virtual_text = true, virtual_lines = false }
-      end
-    end, { desc = 'Toggle lsp_lines' })
   end,
 }
