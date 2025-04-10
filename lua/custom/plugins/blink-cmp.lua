@@ -31,6 +31,7 @@ return {
         ft = 'sql', -- optional but good to have
         opts = {}, -- needed
       },
+      'Kaiser-Yang/blink-cmp-avante',
     },
 
     version = '*',
@@ -54,8 +55,12 @@ return {
       -- default list of enabled providers defined so that you can extend it
       -- elsewhere in your config, without redefining it, via `opts_extend`
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'buffer', 'dadbod', 'deebee', 'markdown' },
+        default = { 'avante', 'lsp', 'path', 'snippets', 'buffer', 'dadbod', 'deebee', 'markdown' },
         providers = {
+          avante = {
+            module = 'blink-cmp-avante',
+            name = 'Avante',
+          },
           dadbod = { name = 'Dadbod', module = 'vim_dadbod_completion.blink' },
           markdown = { name = 'RenderMarkdown', module = 'render-markdown.integ.blink', fallbacks = { 'lsp' } },
           deebee = {
