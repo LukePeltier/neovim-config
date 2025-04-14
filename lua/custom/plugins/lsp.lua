@@ -170,9 +170,6 @@ return { -- LSP Configuration & Pluginslsp
         settings = {
           basedpyright = {
             disableOrganizeImports = true,
-            analysis = {
-              ignore = { '*' },
-            },
           },
         },
       },
