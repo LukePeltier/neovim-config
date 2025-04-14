@@ -166,16 +166,13 @@ return { -- LSP Configuration & Pluginslsp
           },
         },
       },
-      jdtls = {},
-      ruff = {
-        init_options = {
-          settings = {},
-        },
-      },
       basedpyright = {
         settings = {
           basedpyright = {
             disableOrganizeImports = true,
+            analysis = {
+              ignore = { '*' },
+            },
           },
         },
       },
