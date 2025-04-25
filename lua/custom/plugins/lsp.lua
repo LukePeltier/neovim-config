@@ -107,7 +107,13 @@ return { -- LSP Configuration & Pluginslsp
     --  - settings (table): Override the default settings passed when initializing the server.
     --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
     local servers = {
-      gopls = {},
+      phpactor = {
+        on_attach = on_attach,
+        init_options = {
+          ['language_server_phpstan.enabled'] = false,
+          ['language_server_psalm.enabled'] = false,
+        },
+      },
       rust_analyzer = {
         settings = {
           ['rust-analyzer'] = {
@@ -241,10 +247,6 @@ return { -- LSP Configuration & Pluginslsp
       },
       format_on_save = function(bufnr)
         -- Disable autoformat on certain filetypes
-        local ignore_filetypes = { 'php' }
-        if vim.tbl_contains(ignore_filetypes, vim.bo[bufnr].filetype) then
-          return
-        end
         -- Disable with a global or buffer-local variable
         if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
           return

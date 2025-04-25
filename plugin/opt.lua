@@ -91,3 +91,18 @@ vim.opt.wrap = true
 vim.opt.linebreak = true
 
 vim.diagnostic.config { virtual_text = true, virtual_lines = false }
+
+if vim.env.TMUX then
+  vim.g.clipboard = {
+    name = 'tmuxClipboard',
+    copy = {
+      ['+'] = { 'tmux', 'load-buffer', '-w', '-' },
+      ['*'] = { 'tmux', 'load-buffer', '-w', '-' },
+    },
+    paste = {
+      ['+'] = { 'tmux', 'save-buffer', '-w', '-' },
+      ['*'] = { 'tmux', 'save-buffer', '-w', '-' },
+    },
+    cache_enabled = true,
+  }
+end
