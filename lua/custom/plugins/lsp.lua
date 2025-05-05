@@ -188,6 +188,34 @@ return { -- LSP Configuration & Pluginslsp
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
       'stylua', -- Used to format lua code
+      'basedpyright',
+      'bash-language-server',
+      'beautysh',
+      'clang-format',
+      'clangd',
+      'cmake-language-server',
+      'codespell',
+      'css-lsp',
+      'editorconfig-checker',
+      'eslint-lsp',
+      'gopls',
+      'jdtls',
+      'jq',
+      'json-lsp',
+      'lua-language-server',
+      'marksman',
+      'perlnavigator',
+      'phpactor',
+      'phpcs',
+      'phpstan',
+      'prettierd',
+      'ruff',
+      'rust-analyzer',
+      'sql-formatter',
+      'svelte-language-server',
+      'tailwindcss-language-server',
+      'typescript-language-server',
+      'zls',
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
