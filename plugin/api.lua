@@ -122,7 +122,7 @@ vim.api.nvim_create_autocmd('VimEnter', {
       local logai_path = '/home/luke/.local/bin/logai.sh'
       local uv = vim.uv
       if not uv.fs_stat(logai_path) then
-        vim.notify('logai.sh not found, skipping avante.nvim API hook installation', vim.log.levels.WARN)
+        -- vim.notify('logai.sh not found, skipping avante.nvim API hook installation', vim.log.levels.WARN)
         return
       end
 
