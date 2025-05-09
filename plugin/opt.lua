@@ -106,3 +106,5 @@ vim.diagnostic.config { virtual_text = true, virtual_lines = false }
 --     cache_enabled = true,
 --   }
 -- end
+--
+vim.opt.laststatus = 3
