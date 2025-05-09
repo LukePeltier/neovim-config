@@ -11,6 +11,16 @@ return {
       deployment = 'gpt-4.1-mini', -- your desired model (or use gpt-3o, etc.)
       api_version = '2025-01-01-preview',
     },
+    ollama = {
+      --reasoning_effort = "medium"openai, -- low|medium|high, only used for reasoning models
+      model = 'qwen3:8b',
+      timeout = 30000, -- Timeout in milliseconds
+      options = {
+        temperature = 0,
+        num_ctx = 20480,
+        keep_alive = '5m',
+      },
+    },
     web_search_engine = {
       provider = 'kagi',
     },
