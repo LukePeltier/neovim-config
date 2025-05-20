@@ -112,6 +112,7 @@ return { -- LSP Configuration & Pluginslsp
         init_options = {
           ['language_server_phpstan.enabled'] = false,
           ['language_server_psalm.enabled'] = false,
+          ['php_code_sniffer.enabled'] = false,
         },
       },
       rust_analyzer = {
