@@ -5,6 +5,19 @@ return {
     'nvim-treesitter/nvim-treesitter',
     'j-hui/fidget.nvim',
   },
+  keys = {
+    {
+      '<leader>at',
+      '<cmd>CodeCompanionChat Toggle<CR>',
+      desc = 'CodeCompanion Chat Toggle',
+    },
+    {
+      '<leader>ai',
+      '<cmd>CodeCompanion<CR>',
+      mode = 'v',
+      desc = 'CodeCompanion Inline (visual)',
+    },
+  },
   opts = {
     adapters = {
       azure_openai = function()
@@ -14,11 +27,15 @@ return {
             api_key = os.getenv 'AZURE_OPENAI_API_KEY',
             endpoint = os.getenv 'AZURE_OPENAI_ENDPOINT',
             api_version = '2025-01-01-preview',
-            deployment = 'gpt-4.1-mini',
           },
           schema = {
             model = {
-              default = 'gpt-4.1-mini',
+              default = 'gpt-4.1',
+              choices = {
+                ['o4-mini'] = { opts = { can_reason = true } },
+                'gpt-4.1',
+                'gpt-4.1-mini',
+              },
             },
           },
         })
