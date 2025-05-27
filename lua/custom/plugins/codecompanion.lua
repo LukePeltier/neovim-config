@@ -1,5 +1,6 @@
 return {
   'olimorris/codecompanion.nvim',
+  lazy = false,
   dependencies = {
     'nvim-lua/plenary.nvim',
     'nvim-treesitter/nvim-treesitter',
@@ -7,14 +8,20 @@ return {
   },
   keys = {
     {
-      '<leader>at',
+      '<leader>aa',
       '<cmd>CodeCompanionChat Toggle<CR>',
       desc = 'CodeCompanion Chat Toggle',
     },
     {
-      '<leader>ai',
-      '<cmd>CodeCompanion<CR>',
-      mode = 'v',
+      '<leader>ao',
+      '<cmd>CodeCompanionActions<CR>',
+      mode = { 'n', 'v' },
+      desc = 'CodeCompanion Action Palette',
+    },
+    {
+      '<leader>aq',
+      ':CodeCompanion ',
+      mode = { 'n', 'v' },
       desc = 'CodeCompanion Inline (visual)',
     },
   },
@@ -49,8 +56,53 @@ return {
         adapter = 'azure_openai',
       },
     },
+    display = {
+      action_palette = {
+        width = 95,
+        height = 10,
+        prompt = 'Prompt ', -- Prompt used for interactive LLM calls
+        provider = 'default', -- Can be "default", "telescope", "fzf_lua", "mini_pick" or "snacks". If not specified, the plugin will autodetect installed providers.
+        opts = {
+          show_default_actions = true, -- Show the default actions in the action palette?
+          show_default_prompt_library = true, -- Show the default prompt library in the action palette?
+        },
+      },
+    },
+    prompt_library = {
+      ['Code Expert'] = {
+        strategy = 'chat',
+        description = 'Get some special advice from an LLM',
+        opts = {
+          auto_submit = true,
+          stop_context_insertion = true,
+          user_prompt = true,
+        },
+        prompts = {
+          {
+            role = 'system',
+            content = function(context)
+              return 'I want you to act as a senior '
+                .. context.filetype
+                .. ' developer. I will ask you specific questions and I want you to return concise explanations and codeblock examples.'
+            end,
+          },
+          {
+            role = 'user',
+            content = function(context)
+              local text = require('codecompanion.helpers.actions').get_code(context.start_line, context.end_line)
+
+              return 'I have the following code:\n\n```' .. context.filetype .. '\n' .. text .. '\n```\n\n'
+            end,
+            opts = {
+              contains_code = true,
+            },
+          },
+        },
+      },
+    },
   },
   init = function()
     require('custom.fidget-spinner'):init()
+    require('custom.inlineextmark').setup()
   end,
 }

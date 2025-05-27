@@ -55,7 +55,7 @@ return {
       -- default list of enabled providers defined so that you can extend it
       -- elsewhere in your config, without redefining it, via `opts_extend`
       sources = {
-        default = { 'avante', 'lsp', 'path', 'snippets', 'buffer', 'codecompanion', 'dadbod', 'deebee', 'markdown' },
+        default = { 'avante', 'lsp', 'path', 'snippets', 'buffer', 'dadbod', 'deebee', 'markdown' },
         providers = {
           avante = {
             module = 'blink-cmp-avante',
