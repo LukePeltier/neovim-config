@@ -54,7 +54,7 @@ vim.opt.softtabstop = 2 -- Number of spaces inserted instead of a TAB character
 vim.opt.shiftwidth = 2 -- Number of spaces inserted when indenting
 
 vim.opt.foldmethod = 'expr'
-vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 vim.opt.foldtext = ''
 vim.opt.fillchars:append 'fold: '
 vim.opt.foldlevelstart = 99
