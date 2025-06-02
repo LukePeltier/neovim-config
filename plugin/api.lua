@@ -36,7 +36,7 @@ vim.api.nvim_create_autocmd('User', {
     -- Check if the adapter.name in the pattern payload matches "azure_openai"
     if request.data.adapter.name == 'azure_openai' then
       vim.fn.system '/home/luke/.local/bin/logai.sh'
-      print 'Azure endpoint request triggered'
+      vim.notify 'Azure endpoint request triggered'
     end
   end,
 })
