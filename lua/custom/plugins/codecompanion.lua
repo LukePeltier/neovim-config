@@ -3,7 +3,7 @@ return {
   lazy = false,
   dependencies = {
     'nvim-lua/plenary.nvim',
-    'nvim-treesitter/nvim-treesitter',
+    { 'nvim-treesitter/nvim-treesitter', branch = 'main' },
     'j-hui/fidget.nvim',
   },
   keys = {
