@@ -108,3 +108,4 @@ vim.diagnostic.config { virtual_text = true, virtual_lines = false }
 -- end
 --
 vim.opt.laststatus = 3
+vim.env.PATH = vim.env.HOME .. '/.local/share/mise/shims:' .. vim.env.PATH

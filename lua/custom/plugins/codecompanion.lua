@@ -1,108 +1,110 @@
 return {
-  -- 'olimorris/codecompanion.nvim',
-  -- lazy = false,
-  -- dependencies = {
-  --   'nvim-lua/plenary.nvim',
-  --   { 'nvim-treesitter/nvim-treesitter', branch = 'main' },
-  --   'j-hui/fidget.nvim',
-  -- },
-  -- keys = {
-  --   {
-  --     '<leader>aa',
-  --     '<cmd>CodeCompanionChat Toggle<CR>',
-  --     desc = 'CodeCompanion Chat Toggle',
-  --   },
-  --   {
-  --     '<leader>ao',
-  --     '<cmd>CodeCompanionActions<CR>',
-  --     mode = { 'n', 'v' },
-  --     desc = 'CodeCompanion Action Palette',
-  --   },
-  --   {
-  --     '<leader>aq',
-  --     ':CodeCompanion ',
-  --     mode = { 'n', 'v' },
-  --     desc = 'CodeCompanion Inline (visual)',
-  --   },
-  -- },
-  -- opts = {
-  --   adapters = {
-  --     azure_openai = function()
-  --       -- Emit an autocmd event before returning the adapter
-  --       return require('codecompanion.adapters').extend('azure_openai', {
-  --         env = {
-  --           api_key = os.getenv 'AZURE_OPENAI_API_KEY',
-  --           endpoint = os.getenv 'AZURE_OPENAI_ENDPOINT',
-  --           api_version = '2025-01-01-preview',
-  --         },
-  --         schema = {
-  --           model = {
-  --             default = 'gpt-4.1',
-  --             choices = {
-  --               ['o4-mini'] = { opts = { can_reason = true } },
-  --               'gpt-4.1',
-  --               'gpt-4.1-mini',
-  --             },
-  --           },
-  --         },
-  --       })
-  --     end,
-  --   },
-  --   strategies = {
-  --     chat = {
-  --       adapter = 'azure_openai',
-  --     },
-  --     inline = {
-  --       adapter = 'azure_openai',
-  --     },
-  --   },
-  --   display = {
-  --     action_palette = {
-  --       width = 95,
-  --       height = 10,
-  --       prompt = 'Prompt ', -- Prompt used for interactive LLM calls
-  --       provider = 'default', -- Can be "default", "telescope", "fzf_lua", "mini_pick" or "snacks". If not specified, the plugin will autodetect installed providers.
-  --       opts = {
-  --         show_default_actions = true, -- Show the default actions in the action palette?
-  --         show_default_prompt_library = true, -- Show the default prompt library in the action palette?
-  --       },
-  --     },
-  --   },
-  --   prompt_library = {
-  --     ['Code Expert'] = {
-  --       strategy = 'chat',
-  --       description = 'Get some special advice from an LLM',
-  --       opts = {
-  --         auto_submit = true,
-  --         stop_context_insertion = true,
-  --         user_prompt = true,
-  --       },
-  --       prompts = {
-  --         {
-  --           role = 'system',
-  --           content = function(context)
-  --             return 'I want you to act as a senior '
-  --               .. context.filetype
-  --               .. ' developer. I will ask you specific questions and I want you to return concise explanations and codeblock examples.'
-  --           end,
-  --         },
-  --         {
-  --           role = 'user',
-  --           content = function(context)
-  --             local text = require('codecompanion.helpers.actions').get_code(context.start_line, context.end_line)
-  --
-  --             return 'I have the following code:\n\n```' .. context.filetype .. '\n' .. text .. '\n```\n\n'
-  --           end,
-  --           opts = {
-  --             contains_code = true,
-  --           },
-  --         },
-  --       },
-  --     },
-  --   },
-  -- },
-  -- init = function()
-  --   require('custom.fidget-spinner'):init()
-  --   require('custom.inlineextmark').setup()
-  -- end,
+  'olimorris/codecompanion.nvim',
+  lazy = false,
+  dependencies = {
+    'nvim-lua/plenary.nvim',
+    { 'nvim-treesitter/nvim-treesitter', branch = 'main' },
+    'j-hui/fidget.nvim',
+  },
+  keys = {
+    {
+      '<leader>ac',
+      '<cmd>CodeCompanionChat Toggle<CR>',
+      desc = 'CodeCompanion Chat Toggle',
+    },
+    {
+      '<leader>ao',
+      '<cmd>CodeCompanionActions<CR>',
+      mode = { 'n', 'v' },
+      desc = 'CodeCompanion Action Palette',
+    },
+    {
+      '<leader>ai',
+      ':CodeCompanion ',
+      mode = { 'n', 'v' },
+      desc = 'CodeCompanion Inline',
+    },
+  },
+  opts = {
+    adapters = {
+      opts = {
+        show_model_choices = true,
+      },
+      azure_openai = function()
+        -- Emit an autocmd event before returning the adapter
+        return require('codecompanion.adapters').extend('azure_openai', {
+          env = {
+            api_key = os.getenv 'AZURE_OPENAI_API_KEY',
+            endpoint = os.getenv 'AZURE_OPENAI_ENDPOINT',
+            api_version = '2025-01-01-preview',
+          },
+          schema = {
+            model = {
+              default = 'gpt-4.1',
+              choices = {
+                'gpt-4.1',
+                'gpt-4.1-mini',
+              },
+            },
+          },
+        })
+      end,
+    },
+    strategies = {
+      chat = {
+        adapter = 'anthropic',
+      },
+      inline = {
+        adapter = 'anthropic',
+      },
+    },
+    display = {
+      action_palette = {
+        width = 95,
+        height = 10,
+        prompt = 'Prompt ', -- Prompt used for interactive LLM calls
+        provider = 'default', -- Can be "default", "telescope", "fzf_lua", "mini_pick" or "snacks". If not specified, the plugin will autodetect installed providers.
+        opts = {
+          show_default_actions = true, -- Show the default actions in the action palette?
+          show_default_prompt_library = true, -- Show the default prompt library in the action palette?
+        },
+      },
+    },
+    prompt_library = {
+      ['Code Expert'] = {
+        strategy = 'chat',
+        description = 'Get some special advice from an LLM',
+        opts = {
+          auto_submit = true,
+          stop_context_insertion = true,
+          user_prompt = true,
+        },
+        prompts = {
+          {
+            role = 'system',
+            content = function(context)
+              return 'I want you to act as a senior '
+                .. context.filetype
+                .. ' developer. I will ask you specific questions and I want you to return concise explanations and codeblock examples.'
+            end,
+          },
+          {
+            role = 'user',
+            content = function(context)
+              local text = require('codecompanion.helpers.actions').get_code(context.start_line, context.end_line)
+
+              return 'I have the following code:\n\n```' .. context.filetype .. '\n' .. text .. '\n```\n\n'
+            end,
+            opts = {
+              contains_code = true,
+            },
+          },
+        },
+      },
+    },
+  },
+  init = function()
+    require('custom.fidget-spinner'):init()
+    require('custom.inlineextmark').setup()
+  end,
 }
