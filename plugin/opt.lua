@@ -53,44 +53,54 @@ vim.opt.expandtab = true -- Pressing the TAB key will insert spaces instead of a
 vim.opt.softtabstop = 2 -- Number of spaces inserted instead of a TAB character
 vim.opt.shiftwidth = 2 -- Number of spaces inserted when indenting
 
+-- Configure code folding using Treesitter expressions
 vim.opt.foldmethod = 'expr'
 vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-vim.opt.foldtext = ''
-vim.opt.fillchars:append 'fold: '
-vim.opt.foldlevelstart = 99
+vim.opt.foldtext = '' -- Use default fold text
+vim.opt.fillchars:append 'fold: ' -- Use space for fold character instead of default '-'
+vim.opt.foldlevelstart = 99 -- Start with all folds open
 
+-- Disable swap files and backup files
 vim.opt.swapfile = false
 vim.opt.backup = false
 local path_sep = package.config:sub(1, 1) -- Get the path separator based on the package.config
 local home_dir = os.getenv 'HOME' or os.getenv 'USERPROFILE' -- Get home directory in a cross-platform way
 local undodir = home_dir .. (path_sep == '\\' and '\\.vim\\undodir' or '/.vim/undodir') -- Adjust path based on OS
 
+-- Enable persistent undo history saved to a custom directory
 vim.opt.undodir = undodir
 vim.opt.undofile = true
 
-vim.opt.hlsearch = true
-vim.opt.incsearch = true
+-- Enable incremental search highlighting
+vim.opt.hlsearch = true -- Highlight all matches
+vim.opt.incsearch = true -- Show matches as you type
 
+-- Enable true color support in terminal
 vim.opt.termguicolors = true
 
+-- Allow cursor to move one character beyond the end of line
 vim.opt.ve = 'onemore'
 
+-- Add custom filetype mappings
 vim.filetype.add {
   extension = {
-    pcss = 'css',
+    pcss = 'css', -- Treat .pcss files as CSS
   },
 }
 
-vim.opt.shada = { "'10", '<50', 's10', 'h' }
+-- Configure shared data (shada) file settings
+vim.opt.shada = { "'10", '<50', 's10', 'h' } -- Store marks for 10 files, 50 lines per register, skip 10+ kb files, disable hlsearch persistence
 
 -- vim.cmd.colorscheme 'kanagawa'
 
+-- Configure session save options (used by auto-session plugin)
 vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
 
-vim.opt.wrap = true
-vim.opt.linebreak = true
+-- Disable line wrapping (long lines extend beyond screen width)
+vim.opt.wrap = false
 
-vim.diagnostic.config { virtual_text = true, virtual_lines = false }
+-- Configure how diagnostics are displayed
+vim.diagnostic.config { virtual_text = true, virtual_lines = false } -- Show inline diagnostics but not virtual lines
 
 -- if vim.env.TMUX then
 --   vim.g.clipboard = {
@@ -107,5 +117,7 @@ vim.diagnostic.config { virtual_text = true, virtual_lines = false }
 --   }
 -- end
 --
-vim.opt.laststatus = 3
+-- Configure the status line
+vim.opt.laststatus = 3 -- Global status line for all windows
+-- Modify the PATH to include mise runtime version manager
 vim.env.PATH = vim.env.HOME .. '/.local/share/mise/shims:' .. vim.env.PATH

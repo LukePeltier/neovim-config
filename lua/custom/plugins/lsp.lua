@@ -1,32 +1,38 @@
-return { -- LSP Configuration & Pluginslsp
+return { -- LSP Configuration & Plugins
   'neovim/nvim-lspconfig',
   dependencies = {
-    'folke/neoconf.nvim',
-    'saghen/blink.cmp',
-    'williamboman/mason.nvim',
+    -- Core LSP functionality
+    'folke/neoconf.nvim', -- Project-local configuration
+    'williamboman/mason.nvim', -- Package manager for LSP servers
     'williamboman/mason-lspconfig.nvim',
     'WhoIsSethDaniel/mason-tool-installer.nvim',
-    'j-hui/fidget.nvim',
-    { 'https://git.sr.ht/~whynothugo/lsp_lines.nvim' },
-    'stevearc/conform.nvim',
-    -- Schema information
-    'b0o/SchemaStore.nvim',
+    'j-hui/fidget.nvim', -- LSP status updates
+    { 'https://git.sr.ht/~whynothugo/lsp_lines.nvim' }, -- Show diagnostics with virtual lines
+
+    -- LSP enhancements
+    'saghen/blink.cmp', -- LSP capabilities for completion
+    'stevearc/conform.nvim', -- Formatting engine
+    'b0o/SchemaStore.nvim', -- JSON schema support
+
+    -- Language-specific plugins
+    'nvim-java/nvim-java', -- Java LSP support
     {
-      'folke/lazydev.nvim',
+      'folke/lazydev.nvim', -- Lua development
       ft = 'lua',
       lazy = true,
-
       opts = {
         library = {
-          -- See the configuration section for more details
           -- Load luvit types when the `vim.uv` word is found
           { path = 'luvit-meta/library', words = { 'vim%.uv' } },
         },
       },
     },
-    'nvim-java/nvim-java',
   },
   config = function()
+    --[[-----------------------------------------------
+      LSP Keymaps and Highlighting Configuration
+    -----------------------------------------------]]
+    --
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('luke-lsp-attach', { clear = true }),
       callback = function(event)
@@ -95,6 +101,11 @@ return { -- LSP Configuration & Pluginslsp
         end
       end,
     })
+
+    --[[-----------------------------------------------
+      LSP Capabilities Setup
+    -----------------------------------------------]]
+    --
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     if pcall(require, 'blink.cpm') then
       capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities())
@@ -106,6 +117,10 @@ return { -- LSP Configuration & Pluginslsp
     --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
     --  - settings (table): Override the default settings passed when initializing the server.
     --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+    --[[-----------------------------------------------
+      Language Server Configurations
+    -----------------------------------------------]]
+    --
     local servers = {
       phpactor = {
         on_attach = on_attach,
@@ -182,6 +197,10 @@ return { -- LSP Configuration & Pluginslsp
       },
     }
 
+    --[[-----------------------------------------------
+      Mason and Tool Installation
+    -----------------------------------------------]]
+    --
     require('mason').setup()
 
     require('neoconf').setup()
@@ -220,6 +239,10 @@ return { -- LSP Configuration & Pluginslsp
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
+    --[[-----------------------------------------------
+      Server Registration
+    -----------------------------------------------]]
+    --
     local lspconfig = require 'lspconfig'
 
     require('mason-lspconfig').setup {
@@ -234,6 +257,11 @@ return { -- LSP Configuration & Pluginslsp
       },
     }
 
+    --[[-----------------------------------------------
+      Special Server Configuration
+    -----------------------------------------------]]
+    --
+    -- Zig language server configuration
     lspconfig.zls.setup {
       settings = {
         zls = {
@@ -241,6 +269,8 @@ return { -- LSP Configuration & Pluginslsp
         },
       },
     }
+
+    -- Disable certain capabilities for specific servers
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('lsp_attach_disable_ruff_hover', { clear = true }),
       callback = function(args)
@@ -256,6 +286,10 @@ return { -- LSP Configuration & Pluginslsp
       desc = 'LSP: Disable hover capability from Ruff',
     })
 
+    --[[-----------------------------------------------
+      Formatting Configuration
+    -----------------------------------------------]]
+    --
     local conform = require 'conform'
     conform.setup {
       notify_on_error = true,
