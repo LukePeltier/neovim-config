@@ -270,6 +270,8 @@ return { -- LSP Configuration & Plugins
       },
     }
 
+    lspconfig.gdscript.setup(capabilities)
+
     -- Disable certain capabilities for specific servers
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('lsp_attach_disable_ruff_hover', { clear = true }),

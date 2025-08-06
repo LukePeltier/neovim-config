@@ -97,7 +97,7 @@ vim.opt.shada = { "'10", '<50', 's10', 'h' } -- Store marks for 10 files, 50 lin
 vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
 
 -- Disable line wrapping (long lines extend beyond screen width)
-vim.opt.wrap = false
+vim.opt.wrap = true
 
 -- Configure how diagnostics are displayed
 vim.diagnostic.config { virtual_text = true, virtual_lines = false } -- Show inline diagnostics but not virtual lines
