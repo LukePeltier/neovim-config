@@ -47,3 +47,41 @@ vim.api.nvim_create_autocmd('User', {
     end
   end,
 })
+
+vim.api.nvim_create_autocmd('VimEnter', {
+  callback = function()
+    vim.defer_fn(function()
+      local PromptLogger = require 'avante.utils.promptLogger'
+      if not PromptLogger or not PromptLogger.log_prompt then
+        vim.notify('Could not find avante.utils.promptLogger.log_prompt function', vim.log.levels.ERROR)
+        return
+      end
+
+      -- Check if logai.sh exists
+      local logai_path = '/home/luke/.local/bin/logai.sh'
+      local uv = vim.uv
+      if not uv.fs_stat(logai_path) then
+        vim.notify('logai.sh not found, skipping avante.nvim API hook installation', vim.log.levels.WARN)
+        return
+      end
+
+      -- Store original function
+      local original_log = PromptLogger.log_prompt
+
+      -- Replace with our wrapped version
+      PromptLogger.log_prompt = function(opts)
+        vim.notify 'Intercepted avante.nvim log request'
+
+        -- Run your script
+        vim.fn.jobstart(logai_path, {
+          stdin = nil,
+          detach = true,
+          pty = false,
+        })
+
+        -- Call original function
+        return original_log(opts)
+      end
+    end, 1000) -- Wait 1 second for everything to load
+  end,
+})
