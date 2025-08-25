@@ -75,9 +75,6 @@ vim.opt.undofile = true
 vim.opt.hlsearch = true -- Highlight all matches
 vim.opt.incsearch = true -- Show matches as you type
 
--- Enable true color support in terminal
-vim.opt.termguicolors = true
-
 -- Allow cursor to move one character beyond the end of line
 vim.opt.ve = 'onemore'
 
