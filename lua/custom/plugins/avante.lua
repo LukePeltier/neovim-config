@@ -3,27 +3,18 @@ return {
   event = 'VeryLazy',
   version = false, -- Never set this value to "*"! Never!
   opts = {
+    prompt_logger = {
+      enabled = true,
+      log_dir = vim.fn.stdpath 'cache' .. '/avante_prompts',
+    },
     -- add any opts here
     -- for example
     provider = 'bedrock',
-    behaviour = {
-      enable_cursor_planning_mode = true,
-    },
     providers = {
       bedrock = {
-        model = 'us.anthropic.claude-sonnet-4-20250514-v1:0',
+        model = 'us.anthropic.claude-opus-4-1-20250805-v1:0',
         aws_profile = 'PedroAWS',
         aws_region = 'us-west-2',
-      },
-      azure = {
-        endpoint = os.getenv 'AZURE_OPENAI_ENDPOINT',
-        deployment = 'o4-mini', -- your desired model (or use gpt-4o, etc.)
-        timeout = 60000,
-        extra_request_body = {
-          temperature = 1,
-          max_completion_tokens = 20480, -- Increase this to include reasoning tokens (for reasoning models)
-          reasoning_effort = 'medium', -- low|medium|high, only used for reasoning models
-        },
       },
     },
   },

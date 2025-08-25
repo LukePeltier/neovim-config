@@ -1,15 +1,15 @@
 return {
-  {
-    'rmagatti/auto-session',
-    lazy = false,
-    opts = {
-      suppressed_dirs = { '~/', '~/Downloads', '/' },
-      bypass_save_filetypes = { 'alpha' }, -- or whatever dashboard you use
-    },
-    init = function()
-      vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
-    end,
-  },
+  -- {
+  --   'rmagatti/auto-session',
+  --   lazy = false,
+  --   opts = {
+  --     suppressed_dirs = { '~/', '~/Downloads', '/' },
+  --     bypass_save_filetypes = { 'alpha' }, -- or whatever dashboard you use
+  --   },
+  --   init = function()
+  --     vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
+  --   end,
+  -- },
 }
 --   {
 --     'folke/persistence.nvim',
