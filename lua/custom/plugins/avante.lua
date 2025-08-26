@@ -7,14 +7,25 @@ return {
       enabled = true,
       log_dir = vim.fn.stdpath 'cache' .. '/avante_prompts',
     },
-    -- add any opts here
-    -- for example
     provider = 'bedrock',
     providers = {
       bedrock = {
+        model = 'us.anthropic.claude-sonnet-4-20250514-v1:0',
+        aws_profile = 'PedroAWS',
+        aws_region = 'us-west-2',
+      },
+      ['bedrock_opus'] = {
+        __inherited_from = 'bedrock',
         model = 'us.anthropic.claude-opus-4-1-20250805-v1:0',
         aws_profile = 'PedroAWS',
         aws_region = 'us-west-2',
+      },
+    },
+    input = {
+      provider = 'snacks',
+      provider_opts = {
+        title = 'Avante Input',
+        icon = ' ',
       },
     },
   },
@@ -23,10 +34,7 @@ return {
   dependencies = {
     'nvim-lua/plenary.nvim',
     'MunifTanjim/nui.nvim',
-    --- The below dependencies are optional,
-    'echasnovski/mini.pick', -- for file_selector provider mini.pick
-    'ibhagwan/fzf-lua', -- for file_selector provider fzf
-    'stevearc/dressing.nvim', -- for input provider dressing
+    'nvim-telescope/telescope.nvim', -- for file_selector provider telescope
     'folke/snacks.nvim', -- for input provider snacks
     'nvim-tree/nvim-web-devicons', -- or echasnovski/mini.icons
     {

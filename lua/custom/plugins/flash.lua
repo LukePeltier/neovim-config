@@ -13,7 +13,7 @@ return {
   },
   keys = {
     {
-      '<leader><CR>',
+      '<leader><SPACE>',
       mode = { 'n', 'x', 'o' },
       function()
         require('flash').jump()
