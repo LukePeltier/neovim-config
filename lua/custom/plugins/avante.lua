@@ -1,3 +1,20 @@
+local function has_pedro_aws_profile()
+  local aws_config_path = vim.fn.expand '~/.aws/config'
+  if vim.fn.filereadable(aws_config_path) == 0 then
+    return false
+  end
+
+  local content = vim.fn.readfile(aws_config_path)
+  for _, line in ipairs(content) do
+    if line:match '%[profile PedroAWS%]' then
+      return true
+    end
+  end
+  return false
+end
+
+local provider = has_pedro_aws_profile() and 'bedrock' or 'claude'
+
 return {
   'yetone/avante.nvim',
   event = 'VeryLazy',
@@ -7,18 +24,21 @@ return {
       enabled = true,
       log_dir = vim.fn.stdpath 'cache' .. '/avante_prompts',
     },
-    provider = 'bedrock',
+    provider = provider,
     providers = {
       bedrock = {
         model = 'us.anthropic.claude-sonnet-4-20250514-v1:0',
         aws_profile = 'PedroAWS',
         aws_region = 'us-west-2',
       },
-      ['bedrock_opus'] = {
-        __inherited_from = 'bedrock',
-        model = 'us.anthropic.claude-opus-4-1-20250805-v1:0',
-        aws_profile = 'PedroAWS',
-        aws_region = 'us-west-2',
+      claude = {
+        endpoint = 'https://api.anthropic.com',
+        model = 'claude-sonnet-4-20250514',
+        timeout = 30000, -- Timeout in milliseconds
+        extra_request_body = {
+          temperature = 0.75,
+          max_tokens = 20480,
+        },
       },
     },
     input = {

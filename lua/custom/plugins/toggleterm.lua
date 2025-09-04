@@ -3,7 +3,7 @@ return {
     'akinsho/toggleterm.nvim',
     version = '*',
     opts = {
-      open_mapping = 'gt',
+      -- open_mapping = 'gt',
     },
   },
 }

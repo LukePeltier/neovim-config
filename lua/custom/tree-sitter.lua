@@ -5,7 +5,7 @@ treesitter.setup {
   install_dir = vim.fn.stdpath 'data' .. '/site',
 }
 require('nvim-treesitter-textobjects').setup()
-require('treesitter-context').setup()
+-- require('treesitter-context').setup()
 
 local ensure_installed = { 'comment', 'lua', 'bash', 'yaml', 'json', 'python', 'markdown', 'markdown_inline', 'html', 'diff' }
 local already_installed = ts_config.get_installed()

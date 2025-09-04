@@ -9,11 +9,11 @@ StandardOutput=journal
 StandardError=journal
 
 # Optional: Add a delay to batch multiple quick writes
-# ExecStartPre=/bin/sleep 2
+ExecStartPre=/bin/sleep 2
 
 # Optional: Prevent the service from running too frequently
 # Limit to once every 10 seconds
-# RestartSec=10
+RestartSec=10
 
 [Install]
 WantedBy=default.target
