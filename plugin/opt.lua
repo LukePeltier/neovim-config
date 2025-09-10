@@ -118,3 +118,6 @@ vim.diagnostic.config { virtual_text = true, virtual_lines = false } -- Show inl
 vim.opt.laststatus = 3 -- Global status line for all windows
 -- Modify the PATH to include mise runtime version manager
 vim.env.PATH = vim.env.HOME .. '/.local/share/mise/shims:' .. vim.env.PATH
+
+vim.opt.termguicolors = true
+vim.cmd.colorscheme 'tokyonight-night'
