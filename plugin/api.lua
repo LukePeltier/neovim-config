@@ -48,6 +48,15 @@ vim.api.nvim_create_autocmd('User', {
   end,
 })
 
+-- -- Load persistence session after Vim starts
+-- vim.api.nvim_create_autocmd('VimEnter', {
+--   desc = 'Load persistence session on startup',
+--   group = vim.api.nvim_create_augroup('persistence-load', { clear = true }),
+--   callback = function()
+--     require('persistence').load()
+--   end,
+-- })
+
 -- vim.api.nvim_create_autocmd('VimEnter', {
 --   callback = function()
 --     vim.defer_fn(function()
