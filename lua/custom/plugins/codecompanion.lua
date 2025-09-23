@@ -60,6 +60,7 @@ return {
   dependencies = {
     'nvim-lua/plenary.nvim',
     { 'nvim-treesitter/nvim-treesitter' },
+    'j-hui/fidget.nvim',
   },
   keys = {
     {
@@ -225,6 +226,15 @@ return {
           })
         end,
       },
+      acp = {
+        claude_code = function()
+          return require('codecompanion.adapters').extend('claude_code', {
+            env = {
+              ANTHROPIC_API_KEY = os.getenv 'ANTHROPIC_API_KEY',
+            },
+          })
+        end,
+      },
     },
     strategies = {
       chat = {
@@ -235,4 +245,7 @@ return {
       },
     },
   },
+  init = function()
+    require('custom.codecompanion-fidget'):init()
+  end,
 }
