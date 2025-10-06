@@ -60,6 +60,24 @@ return {
         end,
         desc = 'LSP: Disable hover capability from Ruff',
       })
+      vim.api.nvim_create_autocmd('LspAttach', {
+        callback = function(args)
+          local builtin = require 'telescope.builtin'
+
+          vim.opt_local.omnifunc = 'v:lua.vim.lsp.omnifunc'
+          vim.keymap.set('n', 'gd', builtin.lsp_definitions, { buffer = 0 })
+          vim.keymap.set('n', 'gr', builtin.lsp_references, { buffer = 0 })
+          vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { buffer = 0 })
+
+          vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, { buffer = 0 })
+          vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, { buffer = 0 })
+          vim.keymap.set('n', '<space>wd', builtin.lsp_document_symbols, { buffer = 0 })
+          vim.keymap.set('n', '<space>ww', function()
+            builtin.diagnostics { root_dir = true }
+          end, { buffer = 0 })
+        end,
+      })
+
       vim.lsp.config('*', {
         capabilities = require('blink.cmp').get_lsp_capabilities(),
       })
