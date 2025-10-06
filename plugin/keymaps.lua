@@ -43,3 +43,18 @@ function _G.set_terminal_keymaps()
 end
 
 vim.cmd 'autocmd! TermOpen term://* lua set_terminal_keymaps()'
+
+-- See `:help telescope.builtin`
+local telescope_builtin = require 'telescope.builtin'
+vim.keymap.set('n', '<leader>sf', telescope_builtin.find_files, { desc = '[S]earch [F]iles' })
+vim.keymap.set('n', '<leader>sp', function()
+  return telescope_builtin.git_files { cwd = vim.fn.expand '%:h' }
+end, { desc = '[S]earch [P]roject Files' })
+vim.keymap.set('n', '<leader>st', telescope_builtin.builtin, { desc = '[S]earch select [T]elescope' })
+vim.keymap.set('n', '<leader>sw', telescope_builtin.grep_string, { desc = '[S]earch current [W]ord' })
+vim.keymap.set('n', '<leader>sg', telescope_builtin.live_grep, { desc = '[S]earch by [G]rep' })
+vim.keymap.set('n', '<leader>sb', telescope_builtin.buffers, { desc = '[S]earch [B]uffers' })
+vim.keymap.set('n', '<leader>sh', telescope_builtin.help_tags, { desc = '[S]earch [H]elp tags' })
+
+-- Slightly advanced example of overriding default behavior and theme
+vim.keymap.set('n', '<leader>/', telescope_builtin.current_buffer_fuzzy_find, { desc = '[/] Fuzzily search in current buffer' })

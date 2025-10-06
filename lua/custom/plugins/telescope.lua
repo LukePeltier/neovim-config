@@ -7,7 +7,6 @@ return { -- Fuzzy Finder (files, lsp, etc)
       'nvim-telescope/telescope-fzf-native.nvim',
       build = 'make',
     },
-    { 'nvim-telescope/telescope-ui-select.nvim' },
     { 'nvim-tree/nvim-web-devicons' },
   },
   config = function()
