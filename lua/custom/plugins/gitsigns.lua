@@ -22,6 +22,9 @@ return {
     current_line_blame_opts = {
       delay = 250,
       ignore_whitespace = true,
+      extra_opts = {
+        '--follow',
+      },
     },
   },
 }

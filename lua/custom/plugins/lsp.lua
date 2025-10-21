@@ -44,7 +44,6 @@ return {
           'zls',
         },
       }
-      require('mason-lspconfig').setup {}
       -- Disable certain capabilities for specific servers
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('lsp_attach_disable_ruff_hover', { clear = true }),
@@ -156,9 +155,14 @@ return {
         settings = {
           basedpyright = {
             disableOrganizeImports = true,
+            analysis = {
+              typeCheckingMode = 'basic',
+            },
           },
         },
       })
+
+      require('mason-lspconfig').setup {}
 
       require 'custom.conform'
     end,
