@@ -1,8 +1,11 @@
 return {
   {
     'coder/claudecode.nvim',
-    dependencies = { 'folke/snacks.nvim' },
+    dependencies = { 'folke/snacks.nvim', 'nvim-lua/plenary.nvim' },
     config = true,
+    opts = {
+      terminal_cmd = 'blaude',
+    },
     keys = {
       { '<leader>a', nil, desc = 'AI/Claude Code' },
       { '<leader>ac', '<cmd>ClaudeCode<cr>', desc = 'Toggle Claude' },

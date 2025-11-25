@@ -49,6 +49,9 @@ return {
           TS.setup(opts)
         end,
       },
+      {
+        'nvim-treesitter/nvim-treesitter-context',
+      },
     },
     build = function()
       local TS = require 'nvim-treesitter'
