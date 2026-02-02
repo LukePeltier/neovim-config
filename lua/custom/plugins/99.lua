@@ -2,14 +2,14 @@ return {
   'ThePrimeagen/99',
   dependencies = { 'nvim-treesitter/nvim-treesitter' },
   config = function()
-    local nn = require('99')
-    nn.setup({
+    local nn = require '99'
+    nn.setup {
       md_files = { 'AGENT.md' },
       completion = {
         source = 'cmp',
         custom_rules = { '~/.config/99/skills' },
       },
-    })
+    }
 
     -- Fill in function (uses Treesitter to detect function boundaries)
     vim.keymap.set('n', '<leader>9f', nn.fill_in_function, { desc = '99: Fill in function' })
