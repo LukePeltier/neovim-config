@@ -46,7 +46,8 @@ vim.cmd 'autocmd! TermOpen term://* lua set_terminal_keymaps()'
 
 -- See `:help telescope.builtin`
 local telescope_builtin = require 'telescope.builtin'
-vim.keymap.set('n', '<leader>sf', telescope_builtin.find_files, { desc = '[S]earch [F]iles' })
+-- vim.keymap.set('n', '<leader>sf', telescope_builtin.find_files, { desc = '[S]earch [F]iles' })
+vim.keymap.set('n', '<leader>sf', function() return require('fff').find_files() end, { desc = '[S]earch [F]iles' })
 vim.keymap.set('n', '<leader>sp', function()
   return telescope_builtin.git_files { cwd = vim.fn.expand '%:h' }
 end, { desc = '[S]earch [P]roject Files' })
@@ -55,6 +56,7 @@ vim.keymap.set('n', '<leader>sw', telescope_builtin.grep_string, { desc = '[S]ea
 vim.keymap.set('n', '<leader>sg', telescope_builtin.live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sb', telescope_builtin.buffers, { desc = '[S]earch [B]uffers' })
 vim.keymap.set('n', '<leader>sh', telescope_builtin.help_tags, { desc = '[S]earch [H]elp tags' })
+vim.keymap.set('n', '<leader>sr', telescope_builtin.tags, { desc = '[S]earch [R]eference tags file' })
 vim.keymap.set({ 'n', 'v' }, '<leader>y', '"+y')
 vim.keymap.set({ 'n', 'v' }, '<leader>p', '"+p')
 

@@ -1,4 +1,3 @@
-
 local conform = require 'conform'
 conform.setup {
   notify_on_error = true,
@@ -32,9 +31,6 @@ conform.setup {
     return { timeout_ms = 500, lsp_format = 'fallback' }
   end,
   formatters = {
-    beautysh = {
-      prepend_args = { '-i', '3' },
-    },
     sleek = {
       command = 'sleek',
       stdin = true,

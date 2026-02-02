@@ -14,7 +14,6 @@ return {
       require('mason-tool-installer').setup {
         ensure_installed = {
           'stylua', -- Used to format lua code
-          'basedpyright',
           'bash-language-server',
           'beautysh',
           'clang-format',
@@ -41,6 +40,7 @@ return {
           'svelte-language-server',
           'tailwindcss-language-server',
           'typescript-language-server',
+          'ty',
           'zls',
         },
       }
