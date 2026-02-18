@@ -11,6 +11,9 @@ return {
       vim.cmd.colorscheme 'tokyonight-night'
     end,
   },
+  {
+    'xiyaowong/transparent.nvim',
+  },
   -- {
   --   'sainnhe/gruvbox-material',
   --   lazy = false,
