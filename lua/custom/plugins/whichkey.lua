@@ -11,6 +11,7 @@ return { -- Useful plugin to show you pending keybinds.
       { '<leader>d', group = '[D]ocument' },
       { '<leader>r', group = '[R]ename' },
       { '<leader>s', group = '[S]earch' },
+      { '<leader>9', group = '[9]9' },
       { '<leader>w', group = '[W]orkspace' },
       {
         '<leader>b',
