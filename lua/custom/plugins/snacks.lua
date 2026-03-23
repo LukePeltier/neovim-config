@@ -1,30 +1,34 @@
+-- snacks.nvim: A collection of small QoL utilities by folke.
+-- Provides: notifications, buffer delete, terminal toggle, word navigation,
+-- file rename, git browse, indent guides, and more.
 return {
   'folke/snacks.nvim',
   priority = 1000,
   lazy = false,
   ---@type snacks.Config
   opts = {
-    bigfile = { enabled = true },
+    bigfile = { enabled = true }, -- Disable heavy features (treesitter, LSP) for large files
     notifier = {
-      enabled = true,
+      enabled = true, -- Replaces vim.notify with a nicer UI
       timeout = 3000,
     },
-    quickfile = { enabled = true },
-    statuscolumn = { enabled = true },
-    words = { enabled = true },
+    quickfile = { enabled = true }, -- Render files quickly before plugins load
+    statuscolumn = { enabled = true }, -- Custom status column (signs, line numbers, folds)
+    words = { enabled = true }, -- Highlight and jump between references of word under cursor
     input = {
-      enabled = true,
+      enabled = true, -- Prettier vim.ui.input replacement
     },
     styles = {
       notification = {
-        wo = { wrap = true }, -- Wrap notifications
+        wo = { wrap = true },
       },
     },
     indent = {
-      enabled = true,
+      enabled = true, -- Indent guides
     },
   },
   keys = {
+    -- Notifications
     {
       '<leader>un',
       function()
@@ -33,33 +37,23 @@ return {
       desc = 'Dismiss All Notifications',
     },
     {
+      '<leader>uh',
+      function()
+        Snacks.notifier.show_history()
+      end,
+      desc = 'Show Notification History',
+    },
+
+    -- Buffers
+    {
       '<leader>bd',
       function()
         Snacks.bufdelete()
       end,
       desc = 'Delete Buffer',
     },
-    {
-      '<leader>gh',
-      function()
-        Snacks.notifier.show_history()
-      end,
-      desc = 'Show Notification History',
-    },
-    {
-      '<leader>gg',
-      function()
-        Snacks.lazygit()
-      end,
-      desc = 'Lazygit',
-    },
-    {
-      '<leader>gp',
-      function()
-        Snacks.git.blame_line()
-      end,
-      desc = 'Git Blame Line',
-    },
+
+    -- Git
     {
       '<leader>gB',
       function()
@@ -67,20 +61,8 @@ return {
       end,
       desc = 'Git Browse',
     },
-    {
-      '<leader>gf',
-      function()
-        Snacks.lazygit.log_file()
-      end,
-      desc = 'Lazygit Current File History',
-    },
-    {
-      '<leader>gl',
-      function()
-        Snacks.lazygit.log()
-      end,
-      desc = 'Lazygit Log (cwd)',
-    },
+
+    -- Code
     {
       '<leader>cR',
       function()
@@ -88,6 +70,8 @@ return {
       end,
       desc = 'Rename File',
     },
+
+    -- Terminal (<c-_> is how some terminals send <c-/>)
     {
       '<c-/>',
       function()
@@ -102,6 +86,8 @@ return {
       end,
       desc = 'which_key_ignore',
     },
+
+    -- Word references: jump between occurrences of the word under cursor
     {
       ']]',
       function()
@@ -116,6 +102,8 @@ return {
       end,
       desc = 'Prev Reference',
     },
+
+    -- Misc
     {
       '<leader>N',
       desc = 'Neovim News',
@@ -139,7 +127,7 @@ return {
     vim.api.nvim_create_autocmd('User', {
       pattern = 'VeryLazy',
       callback = function()
-        -- Setup some globals for debugging (lazy-loaded)
+        -- Global debug helpers: dd() to inspect, bt() for backtrace
         _G.dd = function(...)
           Snacks.debug.inspect(...)
         end
@@ -147,8 +135,6 @@ return {
           Snacks.debug.backtrace()
         end
         vim.print = _G.dd -- Override print to use snacks for `:=` command
-
-        -- Create some toggle mappings
       end,
     })
   end,

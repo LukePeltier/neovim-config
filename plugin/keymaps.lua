@@ -19,7 +19,7 @@ vim.keymap.set('n', '<leader>Q', function()
 end, { desc = 'Toggle quickfix list' })
 
 -- TIP: Disable arrow keys in normal mode
-vim.keymap.set('n', '<leader><F5>', vim.cmd.UndotreeToggle, { desc = 'Toggle undo tree' })
+vim.keymap.set('n', '<leader>U', vim.cmd.UndotreeToggle, { desc = 'Toggle undo tree' })
 
 vim.keymap.set('n', '<A-j>', function()
   if vim.opt.diff:get() then
@@ -37,7 +37,7 @@ vim.keymap.set('n', '<A-k>', function()
   end
 end, { desc = 'Move line up (or prev diff in diff mode)' })
 
-vim.keymap.set('', '<leader>l', function()
+vim.keymap.set('n', '<leader>l', function()
   local config = vim.diagnostic.config() or {}
   if config.virtual_text then
     vim.diagnostic.config { virtual_text = false, virtual_lines = true }
@@ -71,8 +71,8 @@ vim.keymap.set('n', '<leader>sg', telescope_builtin.live_grep, { desc = '[S]earc
 vim.keymap.set('n', '<leader>sb', telescope_builtin.buffers, { desc = '[S]earch [B]uffers' })
 vim.keymap.set('n', '<leader>sh', telescope_builtin.help_tags, { desc = '[S]earch [H]elp tags' })
 vim.keymap.set('n', '<leader>sr', telescope_builtin.tags, { desc = '[S]earch [R]eference tags file' })
-vim.keymap.set({ 'n', 'v' }, '<leader>y', '"+y')
-vim.keymap.set({ 'n', 'v' }, '<leader>p', '"+p')
+vim.keymap.set({ 'n', 'v' }, '<leader>y', '"+y', { desc = 'Yank to system clipboard' })
+vim.keymap.set({ 'n', 'v' }, '<leader>p', '"+p', { desc = 'Paste from system clipboard' })
 
 -- Slightly advanced example of overriding default behavior and theme
 vim.keymap.set('n', '<leader>/', telescope_builtin.current_buffer_fuzzy_find, { desc = '[/] Fuzzily search in current buffer' })

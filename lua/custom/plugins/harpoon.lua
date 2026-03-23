@@ -14,9 +14,9 @@ return {
       harpoon.ui:toggle_quick_menu(harpoon:list())
     end, { desc = 'Open harpoon quick menu' })
     for _, idx in ipairs { 1, 2, 3, 4, 5 } do
-      vim.keymap.set('n', string.format('<space>%d', idx), function()
+      vim.keymap.set('n', string.format('<leader>%d', idx), function()
         harpoon:list():select(idx)
-      end)
+      end, { desc = string.format('Harpoon slot %d', idx) })
     end
   end,
 }

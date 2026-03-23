@@ -34,19 +34,7 @@ vim.api.nvim_create_user_command('DeeBeeOpen', function()
   require('dbee').open()
 end, {})
 
--- Hook into CodeCompanion AI request events
--- This autocommand triggers when a request to AI services starts
-vim.api.nvim_create_autocmd('User', {
-  pattern = 'CodeCompanionRequestStarted', -- Event fired when CodeCompanion makes an API request
-  group = vim.api.nvim_create_augroup('CodeCompanionHooks', {}),
-  callback = function(request)
-    -- Check if the adapter.name in the pattern payload matches "azure_openai"
-    if request.data.adapter.name == 'azure_openai' then
-      vim.fn.system '/home/luke/.local/bin/logai.sh' -- Run logging script for Azure requests
-      vim.notify 'Azure endpoint request triggered'
-    end
-  end,
-})
+
 
 -- -- Load persistence session after Vim starts
 -- vim.api.nvim_create_autocmd('VimEnter', {

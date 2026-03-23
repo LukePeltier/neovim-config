@@ -5,15 +5,19 @@ return { -- Useful plugin to show you pending keybinds.
     local wk = require 'which-key'
     wk.setup()
 
-    -- Document existing key chainsk
+    -- Document existing key chains
     wk.add {
+      { '<leader>a', group = '[A]dd (Harpoon)' },
       { '<leader>c', group = '[C]ode' },
-      { '<leader>d', group = '[D]ocument' },
+      { '<leader>g', group = '[G]it' },
+      { '<leader>o', group = '[O]pencode' },
       { '<leader>r', group = '[R]ename' },
       { '<leader>s', group = '[S]earch' },
-      { '<leader>9', group = '[9]9' },
-      { '<leader>o', group = '[O]pencode' },
+      { '<leader>S', group = '[S]essions' },
+      { '<leader>u', group = '[U]tilities' },
       { '<leader>w', group = '[W]orkspace' },
+      { '<leader>x', group = 'Trouble' },
+      { '<leader>9', group = '[9]9' },
       {
         '<leader>b',
         group = '[B]uffers',

@@ -3,7 +3,7 @@ return {
   event = 'VeryLazy',
   dependencies = {
     'MunifTanjim/nui.nvim',
-    'rcarriga/nvim-notify',
+    -- nvim-notify not needed: noice routes to Snacks.notifier when available
   },
   opts = {
     lsp = {
