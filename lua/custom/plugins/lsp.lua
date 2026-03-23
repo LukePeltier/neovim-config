@@ -6,8 +6,8 @@ return {
       'mason-org/mason.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
       'neovim/nvim-lspconfig',
-      'stevearc/conform.nvim',
       'b0o/SchemaStore.nvim',
+      'stevearc/conform.nvim',
     },
     config = function()
       require('mason').setup()
@@ -44,36 +44,32 @@ return {
           'zls',
         },
       }
-      -- Disable certain capabilities for specific servers
       vim.api.nvim_create_autocmd('LspAttach', {
-        group = vim.api.nvim_create_augroup('lsp_attach_disable_ruff_hover', { clear = true }),
+        group = vim.api.nvim_create_augroup('lsp_attach', { clear = true }),
         callback = function(args)
           local client = vim.lsp.get_client_by_id(args.data.client_id)
           if client == nil then
             return
           end
+
+          -- Disable hover in favor of basedpyright
           if client.name == 'ruff' then
-            -- Disable hover in favor of Pyright
             client.server_capabilities.hoverProvider = false
           end
-        end,
-        desc = 'LSP: Disable hover capability from Ruff',
-      })
-      vim.api.nvim_create_autocmd('LspAttach', {
-        callback = function(args)
+
           local builtin = require 'telescope.builtin'
 
           vim.opt_local.omnifunc = 'v:lua.vim.lsp.omnifunc'
-          vim.keymap.set('n', 'gd', builtin.lsp_definitions, { buffer = 0 })
-          vim.keymap.set('n', 'gr', builtin.lsp_references, { buffer = 0 })
-          vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { buffer = 0 })
+          vim.keymap.set('n', 'gd', builtin.lsp_definitions, { buffer = 0, desc = 'LSP: Go to definition' })
+          vim.keymap.set('n', 'gr', builtin.lsp_references, { buffer = 0, desc = 'LSP: References' })
+          vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { buffer = 0, desc = 'LSP: Go to declaration' })
 
-          vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, { buffer = 0 })
-          vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, { buffer = 0 })
-          vim.keymap.set('n', '<space>wd', builtin.lsp_document_symbols, { buffer = 0 })
-          vim.keymap.set('n', '<space>ww', function()
+          vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { buffer = 0, desc = 'LSP: Rename' })
+          vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { buffer = 0, desc = 'LSP: Code action' })
+          vim.keymap.set('n', '<leader>wd', builtin.lsp_document_symbols, { buffer = 0, desc = 'LSP: Document symbols' })
+          vim.keymap.set('n', '<leader>ww', function()
             builtin.diagnostics { root_dir = true }
-          end, { buffer = 0 })
+          end, { buffer = 0, desc = 'LSP: Workspace diagnostics' })
         end,
       })
 
@@ -81,7 +77,6 @@ return {
         capabilities = require('blink.cmp').get_lsp_capabilities(),
       })
       vim.lsp.config('phpactor', {
-        on_attach = on_attach,
         init_options = {
           ['language_server_phpstan.enabled'] = false,
           ['language_server_psalm.enabled'] = false,
@@ -92,7 +87,7 @@ return {
       vim.lsp.config('rust_analyzer', {
         settings = {
           ['rust-analyzer'] = {
-            checkOnSave = {
+            check = {
               allFeatures = true,
               command = 'clippy',
             },
@@ -108,7 +103,6 @@ return {
           Lua = {
             workspace = {
               checkThirdParty = false,
-              telemetry = { enable = false },
               library = {
                 '${3rd}/love2d/library',
               },
@@ -116,9 +110,7 @@ return {
             completion = {
               callSnippet = 'Replace',
             },
-            diagnostics = {
-              globals = { 'vim' },
-            },
+            telemetry = { enable = false },
           },
         },
       })
