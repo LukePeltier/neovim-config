@@ -60,8 +60,8 @@ vim.cmd 'autocmd! TermOpen term://* lua set_terminal_keymaps()'
 
 -- See `:help telescope.builtin`
 local telescope_builtin = require 'telescope.builtin'
--- vim.keymap.set('n', '<leader>sf', telescope_builtin.find_files, { desc = '[S]earch [F]iles' })
-vim.keymap.set('n', '<leader>sf', function() return require('fff').find_files() end, { desc = '[S]earch [F]iles' })
+vim.keymap.set('n', '<leader>sf', telescope_builtin.find_files, { desc = '[S]earch [F]iles' })
+-- vim.keymap.set('n', '<leader>sf', function() return require('fff').find_files() end, { desc = '[S]earch [F]iles' })
 vim.keymap.set('n', '<leader>sp', function()
   return telescope_builtin.git_files { cwd = vim.fn.expand '%:h' }
 end, { desc = '[S]earch [P]roject Files' })

@@ -17,7 +17,7 @@ return {
 
     -- Open parent directory in current window
     vim.keymap.set('n', '-', function()
-      oil.open(vim.fn.getcwd())
+      oil.open(vim.fn.expand '%:p:h')
     end, { desc = 'Open parent directory' })
 
     -- Open parent directory in floating window

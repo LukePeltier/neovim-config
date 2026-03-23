@@ -99,20 +99,20 @@ vim.opt.wrap = true
 -- Configure how diagnostics are displayed
 vim.diagnostic.config { virtual_text = true, virtual_lines = false } -- Show inline diagnostics but not virtual lines
 
--- if vim.env.TMUX then
---   vim.g.clipboard = {
---     name = 'tmuxClipboard',
---     copy = {
---       ['+'] = { 'tmux', 'load-buffer', '-w', '-' },
---       ['*'] = { 'tmux', 'load-buffer', '-w', '-' },
---     },
---     paste = {
---       ['+'] = { 'tmux', 'save-buffer', '-w', '-' },
---       ['*'] = { 'tmux', 'save-buffer', '-w', '-' },
---     },
---     cache_enabled = true,
---   }
--- end
+if vim.fn.has('wsl') == 1 then
+  vim.g.clipboard = {
+    name = 'win32yank-wsl',
+    copy = {
+      ['+'] = 'win32yank.exe -i --crlf',
+      ['*'] = 'win32yank.exe -i --crlf',
+    },
+    paste = {
+      ['+'] = 'win32yank.exe -o --lf',
+      ['*'] = 'win32yank.exe -o --lf',
+    },
+    cache_enabled = false,
+  }
+end
 --
 -- Configure the status line
 vim.opt.laststatus = 3 -- Global status line for all windows
