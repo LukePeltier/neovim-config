@@ -11,6 +11,6 @@ return { -- Fuzzy Finder (files, lsp, etc)
     { 'nvim-tree/nvim-web-devicons' },
   },
   config = function()
-    require 'custom.telescope'
+    require 'luke.telescope'
   end,
 }

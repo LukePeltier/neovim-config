@@ -7,7 +7,6 @@ return {
       'WhoIsSethDaniel/mason-tool-installer.nvim',
       'neovim/nvim-lspconfig',
       'b0o/SchemaStore.nvim',
-      'stevearc/conform.nvim',
     },
     config = function()
       require('mason').setup()
@@ -155,8 +154,6 @@ return {
       })
 
       require('mason-lspconfig').setup {}
-
-      require 'custom.conform'
     end,
   },
 }

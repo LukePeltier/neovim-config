@@ -9,7 +9,7 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-require('lazy').setup({ import = 'custom/plugins' }, {
+require('lazy').setup({ import = 'luke/plugins' }, {
   change_detection = {
     notify = false,
   },

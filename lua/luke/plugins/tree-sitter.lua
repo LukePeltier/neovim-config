@@ -100,7 +100,7 @@ return {
       },
     },
     config = function(_, opts)
-      return require('custom.treesitter').setup(opts)
+      return require('luke.treesitter').setup(opts)
     end,
   },
 }

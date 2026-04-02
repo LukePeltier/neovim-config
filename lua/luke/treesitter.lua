@@ -3,7 +3,7 @@ local M = {}
 function M.setup(opts)
   local TS = require 'nvim-treesitter'
 
-  local ts_util = require 'custom.util.treesitter'
+  local ts_util = require 'luke.util.treesitter'
 
   -- some quick sanity checks
   if not TS.get_installed then

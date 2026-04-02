@@ -19,7 +19,7 @@ return {
           'rafamadriz/friendly-snippets',
         },
         config = function()
-          require 'custom.snippets'
+          require 'luke.snippets'
         end,
       },
       {
