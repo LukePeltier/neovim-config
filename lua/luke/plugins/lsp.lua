@@ -12,7 +12,6 @@ return {
       require('mason').setup()
       require('mason-tool-installer').setup {
         ensure_installed = {
-          'stylua', -- Used to format lua code
           'bash-language-server',
           'beautysh',
           'clang-format',
@@ -36,6 +35,7 @@ return {
           'ruff',
           'rust-analyzer',
           'sql-formatter',
+          'stylua',
           'svelte-language-server',
           'tailwindcss-language-server',
           'typescript-language-server',
@@ -43,6 +43,7 @@ return {
           'zls',
         },
       }
+
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('lsp_attach', { clear = true }),
         callback = function(args)
@@ -75,6 +76,44 @@ return {
       vim.lsp.config('*', {
         capabilities = require('blink.cmp').get_lsp_capabilities(),
       })
+
+      vim.lsp.config('basedpyright', {
+        settings = {
+          basedpyright = {
+            disableOrganizeImports = true,
+            analysis = {
+              typeCheckingMode = 'basic',
+            },
+          },
+        },
+      })
+
+      vim.lsp.config('jsonls', {
+        settings = {
+          json = {
+            schemas = require('schemastore').json.schemas(),
+            validate = { enable = true },
+          },
+        },
+      })
+
+      vim.lsp.config('lua_ls', {
+        settings = {
+          Lua = {
+            workspace = {
+              checkThirdParty = false,
+              library = {
+                '${3rd}/love2d/library',
+              },
+            },
+            completion = {
+              callSnippet = 'Replace',
+            },
+            telemetry = { enable = false },
+          },
+        },
+      })
+
       vim.lsp.config('phpactor', {
         init_options = {
           ['language_server_phpstan.enabled'] = false,
@@ -97,23 +136,6 @@ return {
         },
       })
 
-      vim.lsp.config('lua_ls', {
-        settings = {
-          Lua = {
-            workspace = {
-              checkThirdParty = false,
-              library = {
-                '${3rd}/love2d/library',
-              },
-            },
-            completion = {
-              callSnippet = 'Replace',
-            },
-            telemetry = { enable = false },
-          },
-        },
-      })
-
       vim.lsp.config('svelte', {
         capabilities = {
           workspace = {
@@ -131,26 +153,6 @@ return {
             end,
           })
         end,
-      })
-
-      vim.lsp.config('jsonls', {
-        settings = {
-          json = {
-            schemas = require('schemastore').json.schemas(),
-            validate = { enable = true },
-          },
-        },
-      })
-
-      vim.lsp.config('basedpyright', {
-        settings = {
-          basedpyright = {
-            disableOrganizeImports = true,
-            analysis = {
-              typeCheckingMode = 'basic',
-            },
-          },
-        },
       })
 
       require('mason-lspconfig').setup {}
