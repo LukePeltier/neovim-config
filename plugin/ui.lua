@@ -1,25 +1,8 @@
 -- Devicons
 require('nvim-web-devicons').setup()
 
--- Noice (set up before lualine since lualine references noice.api)
-require('noice').setup({
-  lsp = {
-    progress = {
-      enable = false,
-    },
-    override = {
-      ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
-      ['vim.lsp.util.stylize_markdown'] = true,
-    },
-  },
-  presets = {
-    bottom_search = true,
-    command_palette = true,
-    long_message_to_split = true,
-    inc_rename = false,
-    lsp_doc_border = false,
-  },
-})
+-- Built-in UI2 (messages + cmdline)
+require('vim._core.ui2').enable()
 
 -- Lualine
 require('lualine').setup({
@@ -48,11 +31,21 @@ require('lualine').setup({
     lualine_c = { { 'filename', path = 1 } },
     lualine_x = {
       {
-        require('noice').api.status.command.get,
-        cond = require('noice').api.status.command.has,
+        function() return 'recording @' .. vim.fn.reg_recording() end,
+        cond = function() return vim.fn.reg_recording() ~= '' end,
+        color = { fg = '#ff6666' },
       },
     },
-    lualine_y = { 'encoding', 'fileformat', 'filetype' },
+    lualine_y = {
+      'filetype',
+      function()
+        if vim.bo.expandtab then
+          return 'spaces: ' .. vim.bo.shiftwidth
+        else
+          return 'tabs: ' .. vim.bo.tabstop
+        end
+      end,
+    },
     lualine_z = { 'location' },
   },
   inactive_sections = {
@@ -138,13 +131,13 @@ dashboard.section.header.val = {
   '                                                     ',
 }
 dashboard.section.buttons.val = {
-  dashboard.button('e', '  New file', '<cmd>ene<CR>'),
+  dashboard.button('e', '  New file', '<cmd>ene<CR>'),
   dashboard.button('SPC s f', '󰈞  Find file'),
   dashboard.button('SPC s g', '󰊄  Live grep'),
-  dashboard.button('SPC S s', '  Load session'),
-  dashboard.button('SPC S S', '  List sessions'),
-  dashboard.button('c', '  Configuration', '<cmd>cd ~/.config/nvim/ <CR>'),
-  dashboard.button('u', '  Update plugins', '<cmd>lua vim.pack.update()<CR>'),
+  dashboard.button('SPC S s', '  Load session'),
+  dashboard.button('SPC S S', '  List sessions'),
+  dashboard.button('c', '  Configuration', '<cmd>cd ~/.config/nvim/ <CR>'),
+  dashboard.button('u', '  Update plugins', '<cmd>lua vim.pack.update()<CR>'),
   dashboard.button('q', '󰅚  Quit', '<cmd>qa<CR>'),
 }
 require('alpha').setup(dashboard.config)

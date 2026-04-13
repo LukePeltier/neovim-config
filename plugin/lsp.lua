@@ -1,6 +1,7 @@
 -- Completion: blink.cmp + LuaSnip
 -- (Must be set up before LSP so get_lsp_capabilities() works)
 require('blink.compat').setup()
+require('cmp-dbee').setup()
 require('luke.snippets')
 
 require('blink.cmp').setup({

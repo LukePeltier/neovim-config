@@ -59,4 +59,4 @@ for method, keymaps in pairs(moves) do
 end
 
 -- Treesitter context (sticky header showing current function/class)
--- No setup needed, works out of the box
+require('treesitter-context').setup()
