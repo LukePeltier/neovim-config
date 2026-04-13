@@ -5,7 +5,7 @@ require('nvim-web-devicons').setup()
 require('vim._core.ui2').enable()
 
 -- Lualine
-require('lualine').setup({
+require('lualine').setup {
   options = {
     icons_enabled = true,
     theme = 'auto',
@@ -31,8 +31,12 @@ require('lualine').setup({
     lualine_c = { { 'filename', path = 1 } },
     lualine_x = {
       {
-        function() return 'recording @' .. vim.fn.reg_recording() end,
-        cond = function() return vim.fn.reg_recording() ~= '' end,
+        function()
+          return 'recording @' .. vim.fn.reg_recording()
+        end,
+        cond = function()
+          return vim.fn.reg_recording() ~= ''
+        end,
         color = { fg = '#ff6666' },
       },
     },
@@ -60,10 +64,10 @@ require('lualine').setup({
   winbar = {},
   inactive_winbar = {},
   extensions = {},
-})
+}
 
 -- Snacks
-require('snacks').setup({
+require('snacks').setup {
   bigfile = { enabled = true },
   notifier = {
     enabled = true,
@@ -83,19 +87,37 @@ require('snacks').setup({
   indent = {
     enabled = true,
   },
-})
+}
 
-vim.keymap.set('n', '<leader>un', function() Snacks.notifier.hide() end, { desc = 'Dismiss All Notifications' })
-vim.keymap.set('n', '<leader>uh', function() Snacks.notifier.show_history() end, { desc = 'Show Notification History' })
-vim.keymap.set('n', '<leader>bd', function() Snacks.bufdelete() end, { desc = 'Delete Buffer' })
-vim.keymap.set('n', '<leader>gB', function() Snacks.gitbrowse() end, { desc = 'Git Browse' })
-vim.keymap.set('n', '<leader>cR', function() Snacks.rename() end, { desc = 'Rename File' })
-vim.keymap.set('n', '<c-/>', function() Snacks.terminal() end, { desc = 'Toggle Terminal' })
-vim.keymap.set('n', '<c-_>', function() Snacks.terminal() end, { desc = 'which_key_ignore' })
-vim.keymap.set('n', ']]', function() Snacks.words.jump(vim.v.count1) end, { desc = 'Next Reference' })
-vim.keymap.set('n', '[[', function() Snacks.words.jump(-vim.v.count1) end, { desc = 'Prev Reference' })
+vim.keymap.set('n', '<leader>un', function()
+  Snacks.notifier.hide()
+end, { desc = 'Dismiss All Notifications' })
+vim.keymap.set('n', '<leader>uh', function()
+  Snacks.notifier.show_history()
+end, { desc = 'Show Notification History' })
+vim.keymap.set('n', '<leader>bd', function()
+  Snacks.bufdelete()
+end, { desc = 'Delete Buffer' })
+vim.keymap.set('n', '<leader>gB', function()
+  Snacks.gitbrowse()
+end, { desc = 'Git Browse' })
+vim.keymap.set('n', '<leader>cR', function()
+  Snacks.rename()
+end, { desc = 'Rename File' })
+vim.keymap.set('n', '<c-/>', function()
+  Snacks.terminal()
+end, { desc = 'Toggle Terminal' })
+vim.keymap.set('n', '<c-_>', function()
+  Snacks.terminal()
+end, { desc = 'which_key_ignore' })
+vim.keymap.set('n', ']]', function()
+  Snacks.words.jump(vim.v.count1)
+end, { desc = 'Next Reference' })
+vim.keymap.set('n', '[[', function()
+  Snacks.words.jump(-vim.v.count1)
+end, { desc = 'Prev Reference' })
 vim.keymap.set('n', '<leader>N', function()
-  Snacks.win({
+  Snacks.win {
     file = vim.api.nvim_get_runtime_file('doc/news.txt', false)[1],
     width = 0.6,
     height = 0.6,
@@ -106,7 +128,7 @@ vim.keymap.set('n', '<leader>N', function()
       statuscolumn = ' ',
       conceallevel = 3,
     },
-  })
+  }
 end, { desc = 'Neovim News' })
 
 -- Snacks debug helpers
@@ -119,33 +141,22 @@ end
 vim.print = _G.dd
 
 -- Alpha (dashboard)
-local dashboard = require('alpha.themes.dashboard')
-dashboard.section.header.val = {
-  '                                                     ',
-  '  ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ ',
-  '  ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║ ',
-  '  ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║ ',
-  '  ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║ ',
-  '  ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║ ',
-  '  ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ ',
-  '                                                     ',
-}
+local dashboard = require 'alpha.themes.dashboard'
 dashboard.section.buttons.val = {
   dashboard.button('e', '  New file', '<cmd>ene<CR>'),
   dashboard.button('SPC s f', '󰈞  Find file'),
   dashboard.button('SPC s g', '󰊄  Live grep'),
   dashboard.button('SPC S s', '  Load session'),
   dashboard.button('SPC S S', '  List sessions'),
-  dashboard.button('c', '  Configuration', '<cmd>cd ~/.config/nvim/ <CR>'),
   dashboard.button('u', '  Update plugins', '<cmd>lua vim.pack.update()<CR>'),
   dashboard.button('q', '󰅚  Quit', '<cmd>qa<CR>'),
 }
 require('alpha').setup(dashboard.config)
 
 -- Which-key
-local wk = require('which-key')
+local wk = require 'which-key'
 wk.setup()
-wk.add({
+wk.add {
   { '<leader>a', group = '[A]dd (Harpoon)' },
   { '<leader>c', group = '[C]ode' },
   { '<leader>g', group = '[G]it' },
@@ -164,4 +175,4 @@ wk.add({
       return require('which-key.extras').expand.buf()
     end,
   },
-})
+}
