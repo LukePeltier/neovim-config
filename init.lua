@@ -46,6 +46,7 @@ vim.pack.add {
   gh 'j-hui/fidget.nvim',
 
   -- Completion + Snippets
+  gh 'saghen/blink.lib',
   gh 'saghen/blink.cmp',
   gh 'saghen/blink.compat',
   { src = gh 'L3MON4D3/LuaSnip', version = vim.version.range '2.x' },
