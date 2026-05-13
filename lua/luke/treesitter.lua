@@ -7,7 +7,7 @@ function M.setup(opts)
 
   -- some quick sanity checks
   if not TS.get_installed then
-    return vim.notify('Please use `:Lazy` and update `nvim-treesitter`', vim.log.levels.ERROR)
+    return vim.notify('nvim-treesitter is not properly installed or outdated', vim.log.levels.ERROR)
   elseif type(opts.ensure_installed) ~= 'table' then
     return vim.notify('`nvim-treesitter` opts.ensure_installed must be a table', vim.log.levels.ERROR)
   end
