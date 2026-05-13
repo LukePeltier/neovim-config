@@ -44,6 +44,7 @@ vim.pack.add {
   gh 'folke/noice.nvim',
   gh 'MunifTanjim/nui.nvim',
   gh 'j-hui/fidget.nvim',
+  gh 'tris203/precognition.nvim',
 
   -- Completion + Snippets
   gh 'saghen/blink.lib',

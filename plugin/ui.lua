@@ -176,3 +176,7 @@ wk.add {
     end,
   },
 }
+
+local precog = require 'precognition'
+precog.setup()
+precog.hide()
