@@ -41,7 +41,6 @@ vim.pack.add {
   gh 'nvim-tree/nvim-web-devicons',
   gh 'folke/which-key.nvim',
   gh 'nvim-lualine/lualine.nvim',
-  gh 'folke/noice.nvim',
   gh 'MunifTanjim/nui.nvim',
   gh 'j-hui/fidget.nvim',
   gh 'tris203/precognition.nvim',
@@ -98,7 +97,6 @@ vim.pack.add {
   gh 'folke/todo-comments.nvim',
   gh 'nvim-pack/nvim-spectre',
   gh 'mbbill/undotree',
-  gh 'kevinhwang91/nvim-bqf',
   gh 'laytan/cloak.nvim',
   gh 'tpope/vim-dadbod',
   gh 'kristijanhusak/vim-dadbod-ui',
@@ -113,7 +111,6 @@ vim.pack.add {
   gh 'tpope/vim-abolish',
   gh 'tpope/vim-repeat',
   gh 'pechorin/any-jump.vim',
-  gh 'nvim-java/nvim-java',
 }
 
 -- Built-in opt plugin (not a git repo, not managed by vim.pack)
