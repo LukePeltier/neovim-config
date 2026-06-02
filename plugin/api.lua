@@ -9,11 +9,20 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- Automatically remove trailing whitespace on save
-vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
-  group = vim.api.nvim_create_augroup('Luke', {}),
+-- Automatically remove trailing whitespace on save for normal, modifiable buffers.
+vim.api.nvim_create_autocmd('BufWritePre', {
+  group = vim.api.nvim_create_augroup('LukeTrimWhitespace', { clear = true }),
   pattern = { '*' },
-  command = [[%s/\s\+$//e]], -- Executes the substitute command to remove trailing whitespace
+  callback = function(args)
+    local bo = vim.bo[args.buf]
+    if bo.buftype ~= '' or not bo.modifiable then
+      return
+    end
+
+    local view = vim.fn.winsaveview()
+    vim.cmd [[keeppatterns %s/\s\+$//e]]
+    vim.fn.winrestview(view)
+  end,
 })
 
 -- Create a :ToggleAutoformat command to enable/disable automatic formatting
@@ -33,8 +42,6 @@ end, {})
 vim.api.nvim_create_user_command('DeeBeeOpen', function()
   require('dbee').open()
 end, {})
-
-
 
 -- -- Load persistence session after Vim starts
 -- vim.api.nvim_create_autocmd('VimEnter', {

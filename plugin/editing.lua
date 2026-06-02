@@ -1,8 +1,8 @@
 -- Mini plugins
-require('mini.ai').setup({ n_lines = 500 })
+require('mini.ai').setup { n_lines = 500 }
 require('mini.splitjoin').setup()
 require('mini.align').setup()
-require('mini.surround').setup({
+require('mini.surround').setup {
   mappings = {
     add = 'gsa',
     delete = 'gsd',
@@ -12,18 +12,18 @@ require('mini.surround').setup({
     replace = 'gsr',
     update_n_lines = 'gsn',
   },
-})
-require('mini.bracketed').setup({
+}
+require('mini.bracketed').setup {
   undo = { suffix = '' },
-})
+}
 
 -- Autopairs
-require('nvim-autopairs').setup({
+require('nvim-autopairs').setup {
   ignored_next_char = '[%w%.]',
-})
+}
 
 -- Conform (formatting)
-require('conform').setup({
+require('conform').setup {
   notify_on_error = true,
   formatters_by_ft = {
     lua = { 'stylua' },
@@ -45,7 +45,7 @@ require('conform').setup({
       return
     end
     local bufname = vim.api.nvim_buf_get_name(bufnr)
-    if bufname:match('/node_modules/') then
+    if bufname:match '/node_modules/' then
       return
     end
     return { timeout_ms = 500, lsp_format = 'fallback' }
@@ -60,21 +60,14 @@ require('conform').setup({
       stdin = true,
     },
   },
-})
+}
 vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 
 -- Lint
-local lint = require('lint')
+local lint = require 'lint'
 lint.linters_by_ft = {
   editorconfig = { 'editorconfig-checker' },
   php = { 'phpcs', 'phpstan' },
-}
-local phpcs = lint.linters.phpcs
-phpcs.args = {
-  '--standard=./CafeStandards.xml',
-  '-q',
-  '--report=json',
-  '-',
 }
 vim.api.nvim_create_autocmd({ 'BufWritePost', 'BufEnter' }, {
   group = vim.api.nvim_create_augroup('lint', { clear = true }),
@@ -84,11 +77,11 @@ vim.api.nvim_create_autocmd({ 'BufWritePost', 'BufEnter' }, {
 })
 
 -- ts-autotag
-require('nvim-ts-autotag').setup({})
+require('nvim-ts-autotag').setup {}
 
 -- ts-comments
-require('ts-comments').setup({})
+require('ts-comments').setup {}
 
 -- Highlight colors
 vim.opt.termguicolors = true
-require('nvim-highlight-colors').setup({})
+require('nvim-highlight-colors').setup {}

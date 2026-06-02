@@ -55,7 +55,7 @@ vim.opt.shiftwidth = 2 -- Number of spaces inserted when indenting
 
 -- Configure code folding using Treesitter expressions
 vim.opt.foldmethod = 'expr'
-vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+vim.opt.foldexpr = "v:lua.require'luke.util.treesitter'.foldexpr()"
 vim.opt.foldtext = '' -- Use default fold text
 vim.opt.fillchars:append 'fold: ' -- Use space for fold character instead of default '-'
 vim.opt.foldlevelstart = 99 -- Start with all folds open
@@ -99,7 +99,7 @@ vim.opt.wrap = true
 -- Configure how diagnostics are displayed
 vim.diagnostic.config { virtual_text = true, virtual_lines = false } -- Show inline diagnostics but not virtual lines
 
-if vim.fn.has('wsl') == 1 then
+if vim.fn.has 'wsl' == 1 then
   vim.g.clipboard = {
     name = 'win32yank-wsl',
     copy = {

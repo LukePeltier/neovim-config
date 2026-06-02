@@ -1,5 +1,5 @@
 -- Treesitter
-require('luke.treesitter').setup({
+require('luke.treesitter').setup {
   indent = { enable = true },
   highlight = { enable = true },
   folds = { enable = true },
@@ -11,7 +11,6 @@ require('luke.treesitter').setup({
     'javascript',
     'jsdoc',
     'json',
-    'jsonc',
     'lua',
     'luadoc',
     'luap',
@@ -29,12 +28,12 @@ require('luke.treesitter').setup({
     'xml',
     'yaml',
   },
-})
+}
 
 -- Treesitter textobjects
-local TS = require('nvim-treesitter-textobjects')
+local TS = require 'nvim-treesitter-textobjects'
 if TS.setup then
-  TS.setup({})
+  TS.setup {}
 end
 
 local moves = {
@@ -50,7 +49,7 @@ for method, keymaps in pairs(moves) do
     desc = (key:sub(1, 1) == '[' and 'Prev ' or 'Next ') .. desc
     desc = desc .. (key:sub(2, 2) == key:sub(2, 2):upper() and ' End' or ' Start')
     vim.keymap.set({ 'n', 'x', 'o' }, key, function()
-      if vim.wo.diff and key:find('[cC]') then
+      if vim.wo.diff and key:find '[cC]' then
         return vim.cmd('normal! ' .. key)
       end
       require('nvim-treesitter-textobjects.move')[method](query, 'textobjects')

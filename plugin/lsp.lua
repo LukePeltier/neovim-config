@@ -2,9 +2,9 @@
 -- (Must be set up before LSP so get_lsp_capabilities() works)
 require('blink.compat').setup()
 require('cmp-dbee').setup()
-require('luke.snippets')
+require 'luke.snippets'
 
-require('blink.cmp').setup({
+require('blink.cmp').setup {
   keymap = {
     preset = 'default',
   },
@@ -63,12 +63,13 @@ require('blink.cmp').setup({
     },
   },
   fuzzy = { implementation = 'prefer_rust' },
-})
+}
 
 -- LSP: mason + lspconfig
 require('mason').setup()
-require('mason-tool-installer').setup({
+require('mason-tool-installer').setup {
   ensure_installed = {
+    'alejandra',
     'bash-language-server',
     'beautysh',
     'clang-format',
@@ -84,14 +85,16 @@ require('mason-tool-installer').setup({
     'json-lsp',
     'lua-language-server',
     'marksman',
+    'ocamlformat',
     'perlnavigator',
     'phpactor',
     'phpcs',
     'phpstan',
+    'prettier',
     'prettierd',
     'ruff',
     'rust-analyzer',
-    'sql-formatter',
+    'sleek',
     'stylua',
     'svelte-language-server',
     'tailwindcss-language-server',
@@ -99,7 +102,7 @@ require('mason-tool-installer').setup({
     'ty',
     'zls',
   },
-})
+}
 
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('lsp_attach', { clear = true }),
@@ -113,7 +116,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
       client.server_capabilities.hoverProvider = false
     end
 
-    local builtin = require('telescope.builtin')
+    local builtin = require 'telescope.builtin'
 
     vim.opt_local.omnifunc = 'v:lua.vim.lsp.omnifunc'
     vim.keymap.set('n', 'gd', builtin.lsp_definitions, { buffer = 0, desc = 'LSP: Go to definition' })
@@ -124,24 +127,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { buffer = 0, desc = 'LSP: Code action' })
     vim.keymap.set('n', '<leader>wd', builtin.lsp_document_symbols, { buffer = 0, desc = 'LSP: Document symbols' })
     vim.keymap.set('n', '<leader>ww', function()
-      builtin.diagnostics({ root_dir = true })
+      builtin.diagnostics { root_dir = true }
     end, { buffer = 0, desc = 'LSP: Workspace diagnostics' })
   end,
 })
 
 vim.lsp.config('*', {
   capabilities = require('blink.cmp').get_lsp_capabilities(),
-})
-
-vim.lsp.config('basedpyright', {
-  settings = {
-    basedpyright = {
-      disableOrganizeImports = true,
-      analysis = {
-        typeCheckingMode = 'basic',
-      },
-    },
-  },
 })
 
 vim.lsp.config('jsonls', {
@@ -211,11 +203,11 @@ vim.lsp.config('svelte', {
   end,
 })
 
-require('mason-lspconfig').setup({})
+require('mason-lspconfig').setup {}
 
 -- lazydev (Lua LSP enhancement)
-require('lazydev').setup({
+require('lazydev').setup {
   library = {
     { path = 'luvit-meta/library', words = { 'vim%.uv' } },
   },
-})
+}
